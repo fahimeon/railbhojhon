@@ -6,83 +6,69 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Region?>
 
-<VBox spacing="28"
-      xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.bhojhon.controller.TrainSearchController"
-      styleClass="content-container"
-      style="-fx-background-color: linear-gradient(to bottom, #F5F6FA, #E8EBF1); -fx-padding: 32;">
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.bhojhon.controller.TrainSearchController"
+           styleClass="ts-root">
 
-    <!-- Page Header -->
-    <VBox spacing="8">
-        <Label text="Search Your Train" styleClass="page-title" >
-            <font>
-                <Font name="System Bold" size="32"/>
-            </font>
-        </Label>
-        <Label text="Find train route details using train number"
-               styleClass="page-subtitle"/>
-    </VBox>
+    <VBox alignment="CENTER" spacing="25" maxWidth="550" maxHeight="600">
+        
+        <!-- Header Section -->
+        <VBox alignment="CENTER" spacing="8">
+            <Label text="Train Search" styleClass="ts-page-title"/>
+            <Label text="Find your train and pre-order meals easily" styleClass="ts-page-subtitle"/>
+        </VBox>
 
-    <!-- Search Card -->
-    <VBox spacing="16" styleClass="card"
-          style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 4);">
-        <padding>
-            <Insets top="20" right="20" bottom="20" left="20"/>
-        </padding>
+        <!-- Search Form & Result Card -->
+        <VBox spacing="0" styleClass="ts-card">
+            
+            <!-- Search Form Area -->
+            <VBox spacing="20" styleClass="ts-search-area">
+                <padding>
+                    <Insets top="30" right="30" bottom="25" left="30"/>
+                </padding>
+                
+                <VBox spacing="8">
+                    <Label text="Train Number" styleClass="ts-field-label"/>
+                    <HBox spacing="12">
+                        <TextField fx:id="trainNumberField"
+                                   promptText="Example: 101, 102, 201"
+                                   styleClass="ts-text-field"
+                                   HBox.hgrow="ALWAYS"/>
+                        <Button text="Search"
+                                onAction="#handleSearch"
+                                styleClass="ts-btn-search"/>
+                    </HBox>
+                    <Label text="Available: 101 (Suborno), 102 (Turna), 201 (Silk City), 202 (Padma)"
+                           styleClass="ts-hint-text"/>
+                </VBox>
+            </VBox>
+            
+            <!-- Result Section -->
+            <VBox spacing="10" styleClass="ts-result-container">
+                <padding>
+                    <Insets top="20" right="30" bottom="30" left="30"/>
+                </padding>
+                <Label text="Train Information" styleClass="ts-section-header"/>
+                
+                <Label fx:id="trainNameLabel" styleClass="ts-train-name"/>
+                <Label fx:id="routeLabel" styleClass="ts-train-route"/>
+                <Label fx:id="stationCountLabel" styleClass="ts-train-route"/>
+            </VBox>
+        </VBox>
 
-        <Label text="Train Number" styleClass="field-label"/>
-
-        <HBox spacing="14">
-            <TextField fx:id="trainNumberField"
-                       promptText="Example: 101, 102, 201"
-                       prefWidth="280"
-                       style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #D1D5DB; -fx-border-width: 1; -fx-font-size: 14; -fx-padding: 8 12;"/>
-            <Button text="Search"
-                    onAction="#handleSearch"
-                    prefWidth="120"
-                    style="-fx-background-color: linear-gradient(to right, #1A73E8, #4285F4); -fx-text-fill: white; -fx-background-radius: 12; -fx-font-weight: bold; -fx-font-size: 14; -fx-cursor: hand;"/>
+        <!-- Actions -->
+        <HBox spacing="15" alignment="CENTER_RIGHT">
+            <Button text="Back"
+                    onAction="#handleBack"
+                    styleClass="ts-btn-secondary"/>
+            <Button text="View Stations"
+                    onAction="#handleViewStations"
+                    styleClass="ts-btn-primary"/>
         </HBox>
-
-        <Label text="Available: 101 (Suborno), 102 (Turna), 201 (Silk City), 202 (Padma)"
-               style="-fx-text-fill: #6B7280; -fx-font-size: 12;"/>
+        
     </VBox>
-
-    <!-- Result Card -->
-    <VBox spacing="14" styleClass="card"
-          style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.06), 10, 0, 0, 3);">
-        <padding>
-            <Insets top="20" right="20" bottom="20" left="20"/>
-        </padding>
-
-        <Label text="Train Information" styleClass="section-header" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1A1C1E;"/>
-
-        <Label fx:id="trainNameLabel"
-               style="-fx-font-size: 16; -fx-font-weight: 600; -fx-text-fill: #1A73E8;"/>
-
-        <Label fx:id="routeLabel"
-               style="-fx-font-size: 14; -fx-text-fill: #4B5563;"/>
-
-        <Label fx:id="stationCountLabel"
-               style="-fx-font-size: 14; -fx-text-fill: #4B5563;"/>
-    </VBox>
-
-    <!-- Spacer -->
-    <VBox VBox.vgrow="ALWAYS"/>
-
-    <!-- Footer Actions -->
-    <HBox spacing="18" alignment="CENTER_RIGHT">
-        <Button text="Back"
-                onAction="#handleBack"
-                prefWidth="130"
-                style="-fx-background-color: #F1F3F4; -fx-text-fill: #374151; -fx-font-weight: bold; -fx-background-radius: 12; -fx-font-size: 14; -fx-cursor: hand;"/>
-        <Button text="View Stations"
-                onAction="#handleViewStations"
-                prefWidth="170"
-                style="-fx-background-color: linear-gradient(to right, #1A73E8, #4285F4); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-font-size: 14; -fx-cursor: hand;"/>
-    </HBox>
-
-</VBox>
+</StackPane>

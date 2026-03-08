@@ -1,36 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="25.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bhojhon.controller.AdminLoginController" style="-fx-background-color: #f5f5f5;">
-    <padding>
-        <Insets bottom="40.0" left="60.0" right="60.0" top="40.0"/>
-    </padding>
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.bhojhon.controller.AdminLoginController"
+            styleClass="pf-root"
+            stylesheets="@styles.css">
 
-    <!-- Title -->
-    <Label text="Admin Login" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-family: 'Arial';"/>
+    <!-- ═══════════════ LEFT SIDEBAR ═══════════════ -->
+    <left>
+        <VBox styleClass="rs-sidebar" prefWidth="250">
+            <padding><Insets top="28" right="20" bottom="28" left="20"/></padding>
+            
+            <!-- Back Button -->
+            <Button text="← Back to Home" onAction="#handleBack" styleClass="pf-back-btn"/>
 
-    <!-- Input Fields -->
-    <VBox spacing="15.0" maxWidth="320.0" style="-fx-background-color: white; -fx-padding: 20px; -fx-background-radius: 10px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);">
-        <Label text="Email Address:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;"/>
-        <TextField fx:id="emailField" promptText="admin@gmail.com" style="-fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: #bdc3c7; -fx-padding: 5 10 5 10;"/>
+            <!-- Branding -->
+            <VBox spacing="0">
+                <VBox.margin><Insets top="60"/></VBox.margin>
+                <Label text="ADMIN PORTAL" styleClass="pf-section-header" style="-fx-text-fill: #8b96b5; -fx-font-size: 11px;"/>
+                <Label text="Admin Login" styleClass="pf-side-title">
+                    <VBox.margin><Insets top="10"/></VBox.margin>
+                </Label>
+                <HBox>
+                    <padding><Insets top="5"/></padding>
+                    <Label text="Secure Portal" styleClass="rs-btn-primary" 
+                           style="-fx-padding: 4 12; -fx-background-radius: 6; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                </HBox>
+            </VBox>
 
-        <Label text="Password:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;"/>
-        <PasswordField fx:id="passwordField" promptText="Enter your password" style="-fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: #bdc3c7; -fx-padding: 5 10 5 10;"/>
-    </VBox>
+            <!-- Description -->
+            <Label text="Sign in to manage the system." wrapText="true" styleClass="pf-side-desc">
+                <VBox.margin><Insets top="20"/></VBox.margin>
+            </Label>
 
-    <!-- Error Message -->
-    <Label fx:id="errorLabel" textFill="#e74c3c" visible="false" style="-fx-font-weight: bold;"/>
+            <!-- Spacer -->
+            <Region VBox.vgrow="ALWAYS"/>
 
-    <!-- Buttons -->
-    <VBox spacing="15.0" alignment="CENTER">
-        <Button text="Login" onAction="#handleLogin" prefWidth="200.0" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 5px; -fx-cursor: hand;"/>
-        <Button text="Back to Home" onAction="#handleBack" style="-fx-background-color: transparent; -fx-text-fill: #e74c3c; -fx-underline: true; -fx-font-weight: bold; -fx-cursor: hand;"/>
-    </VBox>
-</VBox>
+            <!-- Step indicator -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <StackPane styleClass="rs-step-badge">
+                    <Label text="1" styleClass="rs-step-badge-label"/>
+                </StackPane>
+                <VBox spacing="2">
+                    <Label text="Authentication" styleClass="rs-step-title"/>
+                    <Label text="Step 1 of 1" styleClass="rs-step-sub"/>
+                </VBox>
+            </HBox>
+
+            <!-- Progress bar -->
+            <HBox>
+                <VBox.margin><Insets top="10"/></VBox.margin>
+                <Region styleClass="rs-progress-filled" HBox.hgrow="ALWAYS" prefHeight="3"/>
+            </HBox>
+        </VBox>
+    </left>
+
+    <!-- ═══════════════ CENTER AREA ═══════════════ -->
+    <center>
+        <StackPane styleClass="rs-center-area">
+            <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+
+            <!-- Auth Card -->
+            <VBox styleClass="pf-form-card" maxWidth="450" alignment="TOP_CENTER">
+                <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+
+                <Label text="SIGN IN" styleClass="pf-section-header"/>
+                <Label text="Welcome back" styleClass="pf-side-title" style="-fx-text-fill: #1e293b; -fx-font-size: 24px;">
+                    <VBox.margin><Insets top="8"/></VBox.margin>
+                </Label>
+                <Label text="Enter your credentials to continue." styleClass="pf-side-desc" style="-fx-text-fill: #94a3b8;">
+                    <VBox.margin><Insets top="5"/></VBox.margin>
+                </Label>
+
+                <VBox spacing="20">
+                    <VBox.margin><Insets top="40"/></VBox.margin>
+                    
+                    <VBox spacing="8">
+                        <Label text="Email Address" styleClass="pf-field-label"/>
+                        <TextField fx:id="emailField" promptText="admin@gmail.com" styleClass="pf-text-field"/>
+                    </VBox>
+                    
+                    <VBox spacing="8">
+                        <Label text="Password" styleClass="pf-field-label"/>
+                        <PasswordField fx:id="passwordField" promptText="Enter your secure password..." styleClass="pf-text-field"/>
+                    </VBox>
+
+                    <Label fx:id="errorLabel" styleClass="pf-error-label" visible="false"/>
+
+                    <Button text="Login" onAction="#handleLogin" prefHeight="50" maxWidth="Infinity" styleClass="rs-btn-primary">
+                        <VBox.margin><Insets top="10"/></VBox.margin>
+                    </Button>
+
+                    <Button text="← Back to Home" onAction="#handleBack" 
+                            style="-fx-background-color: transparent; -fx-text-fill: #64748b; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                </VBox>
+            </VBox>
+        </StackPane>
+    </center>
+
+</BorderPane>

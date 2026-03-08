@@ -1,53 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressIndicator?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.geometry.Insets?>
 
-<VBox alignment="CENTER"
-      spacing="30.0"
-      xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.bhojhon.controller.SplashController"
-      style="
-            -fx-background-color: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
-            -fx-padding: 60;
-            ">
+<StackPane fx:id="rootPane"
+           xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.bhojhon.controller.SplashController"
+           styleClass="ss-root"
+           stylesheets="@styles.css">
 
-    <!-- App Name -->
-    <Label text="RailKhabar"
-           style="
-                -fx-text-fill: #ffffff;
-                -fx-font-size: 54px;
-                -fx-font-weight: bold;
-                -fx-letter-spacing: 2px;
-                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 8, 0, 2, 2);
-           "/>
+    <!-- Background Decorative Blobs -->
+    <Circle fx:id="blob1" radius="150" fill="#f0edff" Opacity="0.6" StackPane.alignment="TOP_LEFT">
+        <StackPane.margin><Insets top="-50" left="-50"/></StackPane.margin>
+    </Circle>
+    <Circle fx:id="blob2" radius="100" fill="#f5f3ff" Opacity="0.4" StackPane.alignment="BOTTOM_RIGHT">
+        <StackPane.margin><Insets bottom="-30" right="-30"/></StackPane.margin>
+    </Circle>
 
-    <!-- Tagline -->
-    <Label text="Delicious Food on Your Train Journey"
-           wrapText="true"
-           style="
-                -fx-text-fill: #c0dfff;
-                -fx-font-size: 18px;
-                -fx-opacity: 0.9;
-                -fx-font-weight: medium;
-           "/>
+    <!-- Main Content Card -->
+    <VBox fx:id="mainCard" alignment="CENTER" spacing="25" styleClass="pf-form-card" maxWidth="420" maxHeight="380">
+        <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
 
-    <!-- Loader -->
-    <VBox alignment="CENTER" spacing="12">
-        <ProgressIndicator prefWidth="60"
-                           prefHeight="60"
-                           style="
-                               -fx-progress-color: #00c6ff;
-                           "/>
+        <!-- Icon Container -->
+        <StackPane style="-fx-background-color: #f1f0ff; -fx-background-radius: 50%;" maxWidth="80" maxHeight="80">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <!-- Using a simple label as a placeholder for the train icon if no SVG is available, but I'll style it to look like one -->
+            <Label text="🚂" style="-fx-font-size: 32px;"/>
+        </StackPane>
 
-        <Label text="Loading..."
-               style="
-                    -fx-text-fill: #ffffff;
-                    -fx-font-size: 14px;
-                    -fx-opacity: 0.8;
-               "/>
+        <!-- Brand Title -->
+        <HBox alignment="CENTER" spacing="5">
+            <Label text="Bhojon" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+            <Label text="OnRails" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #5b4ff7;"/>
+        </HBox>
+
+        <!-- Subtitle Area -->
+        <VBox alignment="CENTER" spacing="4">
+            <HBox alignment="CENTER" spacing="10">
+                <Region prefWidth="30" prefHeight="2" style="-fx-background-color: linear-gradient(to right, transparent, #5b4ff7); -fx-opacity: 0.5;"/>
+                <Label text="PREMIUM CATERING" style="-fx-text-fill: #64748b; -fx-font-size: 11px; -fx-font-weight: bold; -fx-letter-spacing: 2px;"/>
+                <Region prefWidth="30" prefHeight="2" style="-fx-background-color: linear-gradient(to left, transparent, #5b4ff7); -fx-opacity: 0.5;"/>
+            </HBox>
+        </VBox>
+
+        <!-- Loading Section -->
+        <VBox spacing="10" alignment="CENTER">
+            <VBox.margin><Insets top="20"/></VBox.margin>
+            
+            <HBox alignment="CENTER" style="-fx-background-color: #0f172a; -fx-background-radius: 20; -fx-padding: 4 15;">
+                <Label text="LOADING..." style="-fx-text-fill: #94a3b8; -fx-font-size: 9px; -fx-font-weight: bold; -fx-letter-spacing: 1px;"/>
+            </HBox>
+
+            <StackPane maxWidth="280">
+                <ProgressBar fx:id="progressBar" progress="0.0" prefWidth="280" prefHeight="4" styleClass="ss-progress-bar"/>
+            </StackPane>
+        </VBox>
     </VBox>
 
-</VBox>
+</StackPane>

@@ -3,29 +3,117 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="35.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.bhojhon.controller.MainMenuController"
-      style="-fx-background-color: #f5f5f5; -fx-padding: 40;">
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.bhojhon.controller.MainMenuController"
+            styleClass="rs-root"
+            stylesheets="@styles.css">
 
-    <!-- Title -->
-    <Label text="Select Your Role" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-family: 'Arial';"/>
+    <!-- ═══════════════ LEFT SIDEBAR ═══════════════ -->
+    <left>
+        <VBox styleClass="rs-sidebar" prefWidth="200">
+            <padding><Insets top="28" right="20" bottom="28" left="20"/></padding>
+            <spacing>0</spacing>
 
-    <!-- Buttons -->
-    <VBox spacing="20.0" alignment="CENTER">
-        <Button text="Passenger (User)" onAction="#handleUserClick"
-                prefWidth="250" prefHeight="50"
-                style="-fx-background-color: #1a73e8; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(26,115,232,0.3), 5, 0, 0, 2);"/>
+            <!-- Brand -->
+            <HBox spacing="6" alignment="CENTER_LEFT">
+                <Label text="Rail" styleClass="rs-brand-rail"/>
+                <Label text="Bhojhon" styleClass="rs-brand-bhojhon"/>
+            </HBox>
 
-        <Button text="Restaurant Owner" onAction="#handleRestaurantClick"
-                prefWidth="250" prefHeight="50"
-                style="-fx-background-color: #ffffff; -fx-border-color: #bdc3c7; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-cursor: hand;"/>
+            <!-- Tagline -->
+            <Label text="Welcome to" styleClass="rs-welcome-to">
+                <VBox.margin><Insets top="60"/></VBox.margin>
+            </Label>
+            <HBox spacing="6" alignment="CENTER_LEFT">
+                <Label text="Rail" styleClass="rs-brand-rail-lg"/>
+                <Label text="Bhojhon" styleClass="rs-brand-bhojhon-lg"/>
+            </HBox>
+            <Label text="Select your role to continue" styleClass="rs-tagline">
+                <VBox.margin><Insets top="8"/></VBox.margin>
+            </Label>
 
-        <Button text="Admin" onAction="#handleAdminClick"
-                prefWidth="250" prefHeight="50"
-                style="-fx-background-color: #ffffff; -fx-border-color: #bdc3c7; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-cursor: hand;"/>
-    </VBox>
+            <!-- Spacer -->
+            <Region VBox.vgrow="ALWAYS"/>
 
-</VBox>
+            <!-- Step indicator -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <StackPane styleClass="rs-step-badge">
+                    <Label text="1" styleClass="rs-step-badge-label"/>
+                </StackPane>
+                <VBox spacing="2">
+                    <Label text="Role Selection" styleClass="rs-step-title"/>
+                    <Label text="Step 1 of 3" styleClass="rs-step-sub"/>
+                </VBox>
+            </HBox>
+
+            <!-- Progress bar -->
+            <HBox>
+                <VBox.margin><Insets top="10"/></VBox.margin>
+                <Region styleClass="rs-progress-filled" prefWidth="70" prefHeight="4"/>
+                <Region styleClass="rs-progress-empty" HBox.hgrow="ALWAYS" prefHeight="4"/>
+            </HBox>
+        </VBox>
+    </left>
+
+    <!-- ═══════════════ CENTER AREA ═══════════════ -->
+    <center>
+        <StackPane styleClass="rs-center-area">
+            <!-- White Card -->
+            <VBox styleClass="rs-card" alignment="CENTER" spacing="0" maxWidth="270" maxHeight="320">
+                <!-- GET STARTED label -->
+                <Label text="GET STARTED" styleClass="rs-get-started"/>
+
+                <!-- Title -->
+                <Label text="Choose your role" styleClass="rs-card-title">
+                    <VBox.margin><Insets top="4"/></VBox.margin>
+                </Label>
+
+                <!-- Subtitle -->
+                <Label text="Select one option to continue" styleClass="rs-card-subtitle">
+                    <VBox.margin><Insets top="6"/></VBox.margin>
+                </Label>
+
+                <!-- Passenger button (filled) -->
+                <Button text="Passenger (User)"
+                        onAction="#handleUserClick"
+                        styleClass="rs-btn-primary"
+                        maxWidth="Infinity">
+                    <VBox.margin><Insets top="28"/></VBox.margin>
+                </Button>
+
+                <!-- OR separator -->
+                <Label text="OR" styleClass="rs-or-label">
+                    <VBox.margin><Insets top="10" bottom="10"/></VBox.margin>
+                </Label>
+
+                <!-- Restaurant Owner button (outline) -->
+                <Button text="Restaurant Owner"
+                        onAction="#handleRestaurantClick"
+                        styleClass="rs-btn-outline"
+                        maxWidth="Infinity"/>
+
+                <!-- Administrator button (outline) -->
+                <Button text="Administrator"
+                        onAction="#handleAdminClick"
+                        styleClass="rs-btn-outline"
+                        maxWidth="Infinity">
+                    <VBox.margin><Insets top="12"/></VBox.margin>
+                </Button>
+            </VBox>
+        </StackPane>
+    </center>
+
+    <!-- ═══════════════ RIGHT DECORATIVE PANEL ═══════════════ -->
+    <right>
+        <Pane styleClass="rs-right-panel" prefWidth="200"/>
+    </right>
+
+</BorderPane>

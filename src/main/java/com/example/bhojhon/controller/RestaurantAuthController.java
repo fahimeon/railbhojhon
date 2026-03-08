@@ -142,11 +142,30 @@ public class RestaurantAuthController extends BaseController {
     }
 
     @FXML
+    private Button loginToggleBtn;
+    @FXML
+    private Button registerToggleBtn;
+
+    @FXML
     private void handleBack() {
         navigateTo("/com/example/bhojhon/main-menu-view.fxml");
     }
 
     private boolean isValidEmail(String email) {
         return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+    }
+
+    @FXML
+    public void switchToLogin() {
+        tabPane.getSelectionModel().select(0);
+        loginToggleBtn.getStyleClass().add("ra-toggle-active");
+        registerToggleBtn.getStyleClass().remove("ra-toggle-active");
+    }
+
+    @FXML
+    public void switchToRegister() {
+        tabPane.getSelectionModel().select(1);
+        registerToggleBtn.getStyleClass().add("ra-toggle-active");
+        loginToggleBtn.getStyleClass().remove("ra-toggle-active");
     }
 }

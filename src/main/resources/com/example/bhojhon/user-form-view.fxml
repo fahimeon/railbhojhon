@@ -5,214 +5,146 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox
-    xmlns="http://javafx.com/javafx/17"
-    xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.example.bhojhon.controller.UserFormController"
-    style="-fx-background-color: linear-gradient(to bottom right, #eef3fb, #ddeaf7); -fx-padding: 30 40 40 40;"
-    spacing="18">
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.bhojhon.controller.UserFormController"
+            styleClass="pf-root"
+            stylesheets="@styles.css">
 
-    <!-- Back Button (outside card, top-left) -->
-    <Button text="← Back"
-            onAction="#handleBack"
-            style="
-                -fx-background-color: transparent;
-                -fx-text-fill: #374151;
-                -fx-font-size: 14px;
-                -fx-font-weight: bold;
-                -fx-cursor: hand;
-                -fx-padding: 0;
-            "/>
+    <!-- ═══════════════ LEFT SIDEBAR ═══════════════ -->
+    <left>
+        <VBox styleClass="rs-sidebar" prefWidth="240">
+            <padding><Insets top="28" right="20" bottom="28" left="20"/></padding>
+            <spacing>0</spacing>
 
-    <!-- Card -->
-    <VBox
-        spacing="22"
-        maxWidth="520"
-        alignment="TOP_CENTER"
-        VBox.vgrow="ALWAYS"
-        style="
-            -fx-background-color: white;
-            -fx-background-radius: 20;
-            -fx-padding: 40 35 35 35;
-            -fx-effect: dropshadow(gaussian, rgba(0,80,200,0.10), 28, 0.2, 0, 8);
-        ">
+            <!-- Back Button -->
+            <Button text="← Back" onAction="#handleBack" styleClass="pf-back-btn"/>
 
-        <!-- Title -->
-        <VBox spacing="6" alignment="CENTER">
-            <Label text="Passenger Details"
-                   style="
-                       -fx-font-size: 26px;
-                       -fx-font-weight: bold;
-                       -fx-text-fill: #111827;
-                   "/>
-            <Label text="Please review and confirm your information"
-                   style="
-                       -fx-font-size: 13px;
-                       -fx-text-fill: #6b7280;
-                   "/>
+            <!-- Page Title -->
+            <VBox spacing="0">
+                <VBox.margin><Insets top="60"/></VBox.margin>
+                <Label text="Passenger" styleClass="pf-side-title"/>
+                <Label text="Details" styleClass="pf-side-title-accent"/>
+            </VBox>
+
+            <!-- Description -->
+            <Label text="Please enter your journey details to proceed with the catering order." 
+                   wrapText="true" styleClass="pf-side-desc">
+                <VBox.margin><Insets top="15"/></VBox.margin>
+            </Label>
+
+            <!-- Spacer -->
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Step indicator -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <StackPane styleClass="rs-step-badge">
+                    <Label text="1" styleClass="rs-step-badge-label"/>
+                </StackPane>
+                <VBox spacing="2">
+                    <Label text="Passenger Info" styleClass="rs-step-title"/>
+                    <Label text="Step 2 of 3" styleClass="rs-step-sub"/>
+                </VBox>
+            </HBox>
+
+            <!-- Progress bar -->
+            <HBox>
+                <VBox.margin><Insets top="10"/></VBox.margin>
+                <Region styleClass="rs-progress-filled" prefWidth="55" prefHeight="3"/>
+                <Region styleClass="rs-progress-empty" HBox.hgrow="ALWAYS" prefHeight="3"/>
+            </HBox>
         </VBox>
+    </left>
 
-        <!-- Form Fields -->
-        <GridPane hgap="14" vgap="14">
-            <columnConstraints>
-                <ColumnConstraints percentWidth="50"/>
-                <ColumnConstraints percentWidth="50"/>
-            </columnConstraints>
+    <!-- ═══════════════ CENTER AREA ═══════════════ -->
+    <center>
+        <StackPane styleClass="rs-center-area">
+            <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
 
-            <!-- Row 0: Full Name | Phone Number -->
-            <TextField fx:id="nameField"
-                       promptText="👤  Full Name"
-                       GridPane.rowIndex="0" GridPane.columnIndex="0"
-                       style="
-                           -fx-background-radius: 10;
-                           -fx-border-radius: 10;
-                           -fx-border-color: #d1d5db;
-                           -fx-border-width: 1.2;
-                           -fx-padding: 12 14;
-                           -fx-font-size: 13.5px;
-                           -fx-text-fill: #111827;
-                           -fx-prompt-text-fill: #9ca3af;
-                           -fx-background-color: white;
-                       "/>
-            <TextField fx:id="phoneField"
-                       promptText="📞  Phone Number"
-                       GridPane.rowIndex="0" GridPane.columnIndex="1"
-                       style="
-                           -fx-background-radius: 10;
-                           -fx-border-radius: 10;
-                           -fx-border-color: #d1d5db;
-                           -fx-border-width: 1.2;
-                           -fx-padding: 12 14;
-                           -fx-font-size: 13.5px;
-                           -fx-text-fill: #111827;
-                           -fx-prompt-text-fill: #9ca3af;
-                           -fx-background-color: white;
-                       "/>
+            <!-- Form Card -->
+            <VBox styleClass="pf-form-card" spacing="25" maxWidth="650" alignment="TOP_CENTER">
+                <padding><Insets top="35" right="35" bottom="35" left="35"/></padding>
 
-            <!-- Row 1: Email Address (full width) -->
-            <TextField fx:id="emailField"
-                       promptText="✉  Email Address"
-                       GridPane.rowIndex="1" GridPane.columnIndex="0"
-                       GridPane.columnSpan="2"
-                       style="
-                           -fx-background-radius: 10;
-                           -fx-border-radius: 10;
-                           -fx-border-color: #d1d5db;
-                           -fx-border-width: 1.2;
-                           -fx-padding: 12 14;
-                           -fx-font-size: 13.5px;
-                           -fx-text-fill: #111827;
-                           -fx-prompt-text-fill: #9ca3af;
-                           -fx-background-color: white;
-                       "/>
+                <!-- PERSONAL INFORMATION SECTION -->
+                <VBox spacing="12">
+                    <Label text="PERSONAL INFORMATION" styleClass="pf-section-header"/>
+                    
+                    <VBox spacing="5">
+                        <Label text="Full Name" styleClass="pf-field-label"/>
+                        <TextField fx:id="nameField" promptText="e.g. MD AKHLAK UD JAMAN" styleClass="pf-text-field"/>
+                    </VBox>
 
-            <!-- Row 2: Seat Number | Delivery Info -->
-            <TextField fx:id="seatField"
-                       promptText="🪑  Seat Number"
-                       GridPane.rowIndex="2" GridPane.columnIndex="0"
-                       style="
-                           -fx-background-radius: 10;
-                           -fx-border-radius: 10;
-                           -fx-border-color: #d1d5db;
-                           -fx-border-width: 1.2;
-                           -fx-padding: 12 14;
-                           -fx-font-size: 13.5px;
-                           -fx-text-fill: #111827;
-                           -fx-prompt-text-fill: #9ca3af;
-                           -fx-background-color: white;
-                       "/>
-            <TextField fx:id="deliveryNoteField"
-                       promptText="ℹ  Delivery Info"
-                       GridPane.rowIndex="2" GridPane.columnIndex="1"
-                       style="
-                           -fx-background-radius: 10;
-                           -fx-border-radius: 10;
-                           -fx-border-color: #d1d5db;
-                           -fx-border-width: 1.2;
-                           -fx-padding: 12 14;
-                           -fx-font-size: 13.5px;
-                           -fx-text-fill: #111827;
-                           -fx-prompt-text-fill: #9ca3af;
-                           -fx-background-color: white;
-                       "/>
+                    <GridPane hgap="20">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+                        <children>
+                            <VBox spacing="5" GridPane.columnIndex="0">
+                                <Label text="Phone Number" styleClass="pf-field-label"/>
+                                <TextField fx:id="phoneField" promptText="01xxxxxxxxx" styleClass="pf-text-field"/>
+                            </VBox>
+                            <VBox spacing="5" GridPane.columnIndex="1">
+                                <Label text="Email Address" styleClass="pf-field-label"/>
+                                <TextField fx:id="emailField" promptText="akhlak@example.com" styleClass="pf-text-field"/>
+                            </VBox>
+                        </children>
+                    </GridPane>
+                </VBox>
 
-            <!-- Row 3: Ticket (PNR) | Train Number -->
-            <TextField fx:id="pnrField"
-                       promptText="🎫  Ticket Number (PNR)"
-                       GridPane.rowIndex="3" GridPane.columnIndex="0"
-                       style="
-                           -fx-background-radius: 10;
-                           -fx-border-radius: 10;
-                           -fx-border-color: #d1d5db;
-                           -fx-border-width: 1.2;
-                           -fx-padding: 12 14;
-                           -fx-font-size: 13.5px;
-                           -fx-text-fill: #111827;
-                           -fx-prompt-text-fill: #9ca3af;
-                           -fx-background-color: white;
-                       "/>
-            <TextField fx:id="trainNumberField"
-                       promptText="⚡  Train Number"
-                       GridPane.rowIndex="3" GridPane.columnIndex="1"
-                       style="
-                           -fx-background-radius: 10;
-                           -fx-border-radius: 10;
-                           -fx-border-color: #d1d5db;
-                           -fx-border-width: 1.2;
-                           -fx-padding: 12 14;
-                           -fx-font-size: 13.5px;
-                           -fx-text-fill: #111827;
-                           -fx-prompt-text-fill: #9ca3af;
-                           -fx-background-color: white;
-                       "/>
+                <!-- JOURNEY DETAILS SECTION -->
+                <VBox spacing="12">
+                    <Label text="JOURNEY DETAILS" styleClass="pf-section-header"/>
+                    
+                    <GridPane hgap="20" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+                        <children>
+                            <VBox spacing="5" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                                <Label text="Train Number" styleClass="pf-field-label"/>
+                                <TextField fx:id="trainNumberField" promptText="e.g. 701" styleClass="pf-text-field"/>
+                            </VBox>
+                            <VBox spacing="5" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                <Label text="PNR Number" styleClass="pf-field-label"/>
+                                <TextField fx:id="pnrField" promptText="10-digit PNR" styleClass="pf-text-field"/>
+                            </VBox>
+                            <VBox spacing="5" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                                <Label text="Seat / Coach" styleClass="pf-field-label"/>
+                                <TextField fx:id="seatField" promptText="e.g. B2 - 45" styleClass="pf-text-field"/>
+                            </VBox>
+                            <VBox spacing="5" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                <Label text="Journey Date" styleClass="pf-field-label"/>
+                                <DatePicker fx:id="journeyDatePicker" promptText="DD-MM-YYYY" prefHeight="40" maxWidth="Infinity" styleClass="pf-date-picker"/>
+                            </VBox>
+                        </children>
+                    </GridPane>
 
-            <!-- Row 4: Journey Date (full width, DatePicker) -->
-            <DatePicker fx:id="journeyDatePicker"
-                        promptText="Journey Date"
-                        GridPane.rowIndex="4" GridPane.columnIndex="0"
-                        GridPane.columnSpan="2"
-                        maxWidth="Infinity"
-                        style="
-                            -fx-background-radius: 10;
-                            -fx-border-radius: 10;
-                            -fx-border-color: #3b82f6;
-                            -fx-border-width: 1.5;
-                            -fx-font-size: 13.5px;
-                            -fx-text-fill: #111827;
-                        "/>
+                    <!-- Delivery Instructions -->
+                    <VBox spacing="5">
+                        <Label text="Delivery Instructions" styleClass="pf-field-label"/>
+                        <TextField fx:id="deliveryNoteField" promptText="e.g. Call before reaching..." styleClass="pf-text-field"/>
+                    </VBox>
+                </VBox>
 
-            <!-- Hidden text field to keep existing controller logic intact -->
-            <TextField fx:id="journeyDateField"
-                       visible="false" managed="false"
-                       GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <!-- Error Label -->
+                <Label fx:id="errorLabel" styleClass="pf-error-label" visible="false"/>
 
-        </GridPane>
+                <!-- Submit Button -->
+                <HBox alignment="CENTER_RIGHT">
+                    <Button text="Continue " onAction="#handleSubmit" styleClass="rs-btn-primary" prefWidth="220"/>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </center>
 
-        <!-- Error label -->
-        <Label fx:id="errorLabel"
-               textFill="#dc2626"
-               visible="false"
-               style="-fx-font-size: 13px; -fx-font-weight: bold;"/>
-
-        <!-- Submit Button -->
-        <Button text="Continue to Ticket Upload"
-                onAction="#handleSubmit"
-                maxWidth="Infinity"
-                style="
-                    -fx-background-color: linear-gradient(to right, #3b82f6, #2563eb);
-                    -fx-text-fill: white;
-                    -fx-font-size: 15px;
-                    -fx-font-weight: bold;
-                    -fx-background-radius: 12;
-                    -fx-padding: 14 20;
-                    -fx-cursor: hand;
-                    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.35), 12, 0.2, 0, 4);
-                "/>
-
-    </VBox>
-</VBox>
+</BorderPane>
