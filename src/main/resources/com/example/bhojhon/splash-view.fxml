@@ -12,7 +12,7 @@
            stylesheets="@styles.css">
 
     <!-- New Dynamic Layout mimicking the requested design -->
-    <VBox alignment="CENTER" spacing="55">
+    <VBox fx:id="mainCard" alignment="CENTER" spacing="55">
         <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
 
         <!-- Top Logo Lockup -->

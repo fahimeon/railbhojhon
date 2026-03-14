@@ -15,10 +15,6 @@ public class SplashController extends BaseController {
     private VBox mainCard;
     @FXML
     private ProgressBar progressBar;
-    @FXML
-    private Circle blob1;
-    @FXML
-    private Circle blob2;
 
     @Override
     public void initialize() {
@@ -42,10 +38,6 @@ public class SplashController extends BaseController {
         ParallelTransition cardEntrance = new ParallelTransition(fadeIn, moveUp, scaleUp);
         cardEntrance.setDelay(Duration.millis(200));
 
-        // 3. Blob Floating Animations
-        animateBlob(blob1, 20, 15, 4);
-        animateBlob(blob2, -15, 20, 5);
-
         // 4. Progress Bar Animation
         Timeline progressTimeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(progressBar.progressProperty(), 0)),
@@ -60,13 +52,4 @@ public class SplashController extends BaseController {
         navigationDelay.play();
     }
 
-    private void animateBlob(Node blob, double x, double y, double duration) {
-        TranslateTransition tt = new TranslateTransition(Duration.seconds(duration), blob);
-        tt.setByX(x);
-        tt.setByY(y);
-        tt.setAutoReverse(true);
-        tt.setCycleCount(Animation.INDEFINITE);
-        tt.setInterpolator(Interpolator.EASE_BOTH);
-        tt.play();
-    }
 }
