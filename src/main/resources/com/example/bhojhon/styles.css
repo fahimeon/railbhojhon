@@ -866,7 +866,7 @@
     -fx-text-fill: #ffffff;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-background-color: #4f46e5;
+    -fx-background-color: #0B6EF5;
     -fx-background-radius: 4px;
     -fx-padding: 2 7 2 7;
 }
@@ -886,7 +886,7 @@
     -fx-text-fill: #ffffff;
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-background-color: #4f46e5;
+    -fx-background-color: #0B6EF5;
     -fx-background-radius: 5px;
     -fx-padding: 1 8 1 8;
 }
@@ -897,7 +897,7 @@
 }
 
 .rs-step-badge {
-    -fx-background-color: #4f46e5;
+    -fx-background-color: #0B6EF5;
     -fx-background-radius: 50%;
     -fx-min-width: 28px;
     -fx-min-height: 28px;
@@ -923,7 +923,7 @@
 }
 
 .rs-progress-filled {
-    -fx-background-color: #4f46e5;
+    -fx-background-color: #0B6EF5;
     -fx-background-radius: 2px 0 0 2px;
 }
 
@@ -972,7 +972,7 @@
 
 /* ── Buttons ──────────────────────────────────── */
 .rs-btn-primary {
-    -fx-background-color: #5b4ff7;
+    -fx-background-color: #0B6EF5;
     -fx-text-fill: #ffffff;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
@@ -983,8 +983,8 @@
 }
 
 .rs-btn-primary:hover {
-    -fx-background-color: #4840e0;
-    -fx-effect: dropshadow(three-pass-box, rgba(91, 79, 247, 0.4), 12, 0, 0, 4);
+    -fx-background-color: #004BCB;
+    -fx-effect: dropshadow(three-pass-box, rgba(11, 110, 245, 0.4), 12, 0, 0, 4);
 }
 
 .rs-btn-outline {
