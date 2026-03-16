@@ -1421,3 +1421,64 @@
     -fx-background-color: #f8fafc;
     -fx-border-color: #94a3b8;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MAIN MENU REDESIGN - Choose Your Role
+   ═══════════════════════════════════════════════════════════ */
+.menu-root {
+    -fx-background-color: #2563eb;
+    -fx-font-family: 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.menu-main-title {
+    -fx-text-fill: white;
+    -fx-font-size: 54px;
+    -fx-font-weight: 800;
+}
+
+.menu-sub-title {
+    -fx-text-fill: #bfdbfe;
+    -fx-font-size: 20px;
+    -fx-font-weight: 500;
+    -fx-padding: 0 0 20 0;
+}
+
+.menu-card-container {
+    -fx-background-color: white;
+    -fx-background-radius: 32px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 30, 0, 0, 10);
+}
+
+.menu-option-card {
+    -fx-background-color: #f0f6ff;
+    -fx-background-radius: 32px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 40 24 40 24;
+    -fx-cursor: hand;
+    -fx-pref-width: 280px;
+    -fx-pref-height: 340px;
+    -fx-alignment: top-center;
+}
+
+.menu-option-card:hover {
+    -fx-background-color: #e4efff;
+    -fx-translate-y: -8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.2), 20, 0, 0, 5);
+}
+
+.menu-card-title {
+    -fx-text-fill: #1f2937;
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+}
+
+.menu-option-card:hover .menu-card-title {
+    -fx-text-fill: #2563eb;
+}
+
+.menu-card-desc {
+    -fx-text-fill: #6b7280;
+    -fx-font-size: 15px;
+    -fx-font-weight: 500;
+}

@@ -3,117 +3,88 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.bhojhon.controller.MainMenuController"
-            styleClass="rs-root"
-            stylesheets="@styles.css">
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.bhojhon.controller.MainMenuController"
+           styleClass="menu-root"
+           stylesheets="@styles.css">
 
-    <!-- ═══════════════ LEFT SIDEBAR ═══════════════ -->
-    <left>
-        <VBox styleClass="rs-sidebar" prefWidth="200">
-            <padding><Insets top="28" right="20" bottom="28" left="20"/></padding>
-            <spacing>0</spacing>
+    <!-- Decorative Elements (in background) -->
+    <AnchorPane>
+        <Region AnchorPane.rightAnchor="0" AnchorPane.topAnchor="250" prefWidth="160" prefHeight="48" style="-fx-background-color: #1d4ed8; -fx-background-radius: 24 0 0 24;" />
+        <Region AnchorPane.leftAnchor="0" AnchorPane.topAnchor="350" prefWidth="128" prefHeight="48" style="-fx-background-color: #1d4ed8; -fx-background-radius: 0 24 24 0;" />
+        <Region AnchorPane.leftAnchor="300" AnchorPane.bottomAnchor="0" prefWidth="64" prefHeight="192" style="-fx-background-color: #1d4ed8; -fx-background-radius: 5 5 0 0;" />
+        <Region AnchorPane.rightAnchor="300" AnchorPane.bottomAnchor="0" prefWidth="64" prefHeight="256" style="-fx-background-color: #1d4ed8; -fx-background-radius: 5 5 0 0;" />
+    </AnchorPane>
 
-            <!-- Brand -->
-            <HBox spacing="6" alignment="CENTER_LEFT">
-                <Label text="Rail" styleClass="rs-brand-rail"/>
-                <Label text="Bhojhon" styleClass="rs-brand-bhojhon"/>
-            </HBox>
-
-            <!-- Tagline -->
-            <Label text="Welcome to" styleClass="rs-welcome-to">
-                <VBox.margin><Insets top="60"/></VBox.margin>
-            </Label>
-            <HBox spacing="6" alignment="CENTER_LEFT">
-                <Label text="Rail" styleClass="rs-brand-rail-lg"/>
-                <Label text="Bhojhon" styleClass="rs-brand-bhojhon-lg"/>
-            </HBox>
-            <Label text="Select your role to continue" styleClass="rs-tagline">
-                <VBox.margin><Insets top="8"/></VBox.margin>
-            </Label>
-
-            <!-- Spacer -->
-            <Region VBox.vgrow="ALWAYS"/>
-
-            <!-- Step indicator -->
-            <HBox spacing="12" alignment="CENTER_LEFT">
-                <StackPane styleClass="rs-step-badge">
-                    <Label text="1" styleClass="rs-step-badge-label"/>
-                </StackPane>
-                <VBox spacing="2">
-                    <Label text="Role Selection" styleClass="rs-step-title"/>
-                    <Label text="Step 1 of 3" styleClass="rs-step-sub"/>
-                </VBox>
-            </HBox>
-
-            <!-- Progress bar -->
-            <HBox>
-                <VBox.margin><Insets top="10"/></VBox.margin>
-                <Region styleClass="rs-progress-filled" prefWidth="70" prefHeight="4"/>
-                <Region styleClass="rs-progress-empty" HBox.hgrow="ALWAYS" prefHeight="4"/>
-            </HBox>
+    <!-- Main Content -->
+    <VBox alignment="CENTER" spacing="20">
+        <!-- Header -->
+        <VBox alignment="CENTER" spacing="0">
+            <VBox.margin><Insets bottom="20"/></VBox.margin>
+            <Label text="Choose Your Role" styleClass="menu-main-title"/>
+            <Label text="Select One Option to Continue" styleClass="menu-sub-title"/>
         </VBox>
-    </left>
 
-    <!-- ═══════════════ CENTER AREA ═══════════════ -->
-    <center>
-        <StackPane styleClass="rs-center-area">
-            <!-- White Card -->
-            <VBox styleClass="rs-card" alignment="CENTER" spacing="0" maxWidth="270" maxHeight="320">
-                <!-- GET STARTED label -->
-                <Label text="GET STARTED" styleClass="rs-get-started"/>
+        <!-- Main Card Container -->
+        <HBox styleClass="menu-card-container" alignment="CENTER" spacing="40" maxWidth="1000">
+            <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+            
+            <!-- Restaurant Owner Card -->
+            <Button styleClass="menu-option-card" onAction="#handleRestaurantClick">
+                <graphic>
+                    <VBox alignment="TOP_CENTER" spacing="15">
+                        <ImageView fitHeight="160" fitWidth="160" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@restaurantowner icon.png"/>
+                            </image>
+                        </ImageView>
+                        <Label text="Restaurant&#10;Owner" textAlignment="CENTER" styleClass="menu-card-title"/>
+                        <VBox VBox.vgrow="ALWAYS" />
+                        <Label text="Get Extra Orders from&#10;our App!" textAlignment="CENTER" styleClass="menu-card-desc"/>
+                    </VBox>
+                </graphic>
+            </Button>
 
-                <!-- Title -->
-                <Label text="Choose your role" styleClass="rs-card-title">
-                    <VBox.margin><Insets top="4"/></VBox.margin>
-                </Label>
+            <!-- Passenger Card -->
+            <Button styleClass="menu-option-card" onAction="#handleUserClick">
+                <graphic>
+                    <VBox alignment="TOP_CENTER" spacing="15">
+                        <ImageView fitHeight="160" fitWidth="160" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@passenger icon.png"/>
+                            </image>
+                        </ImageView>
+                        <Label text="Passenger" textAlignment="CENTER" styleClass="menu-card-title"/>
+                        <VBox VBox.vgrow="ALWAYS" />
+                        <Label text="Order Your Favourite Food&#10;from nearby restaurants" textAlignment="CENTER" styleClass="menu-card-desc"/>
+                    </VBox>
+                </graphic>
+            </Button>
 
-                <!-- Subtitle -->
-                <Label text="Select one option to continue" styleClass="rs-card-subtitle">
-                    <VBox.margin><Insets top="6"/></VBox.margin>
-                </Label>
-
-                <!-- Passenger button (filled) -->
-                <Button text="Passenger (User)"
-                        onAction="#handleUserClick"
-                        styleClass="rs-btn-primary"
-                        maxWidth="Infinity">
-                    <VBox.margin><Insets top="28"/></VBox.margin>
-                </Button>
-
-                <!-- OR separator -->
-                <Label text="OR" styleClass="rs-or-label">
-                    <VBox.margin><Insets top="10" bottom="10"/></VBox.margin>
-                </Label>
-
-                <!-- Restaurant Owner button (outline) -->
-                <Button text="Restaurant Owner"
-                        onAction="#handleRestaurantClick"
-                        styleClass="rs-btn-outline"
-                        maxWidth="Infinity"/>
-
-                <!-- Administrator button (outline) -->
-                <Button text="Administrator"
-                        onAction="#handleAdminClick"
-                        styleClass="rs-btn-outline"
-                        maxWidth="Infinity">
-                    <VBox.margin><Insets top="12"/></VBox.margin>
-                </Button>
-            </VBox>
-        </StackPane>
-    </center>
-
-    <!-- ═══════════════ RIGHT DECORATIVE PANEL ═══════════════ -->
-    <right>
-        <Pane styleClass="rs-right-panel" prefWidth="200"/>
-    </right>
-
-</BorderPane>
+            <!-- Admin Card -->
+            <Button styleClass="menu-option-card" onAction="#handleAdminClick">
+                <graphic>
+                    <VBox alignment="TOP_CENTER" spacing="15">
+                        <ImageView fitHeight="160" fitWidth="160" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@admin icon.png"/>
+                            </image>
+                        </ImageView>
+                        <Label text="Admin" textAlignment="CENTER" styleClass="menu-card-title"/>
+                        <VBox VBox.vgrow="ALWAYS" />
+                        <Label text="Get to see dashboards&#10;and Insights" textAlignment="CENTER" styleClass="menu-card-desc"/>
+                    </VBox>
+                </graphic>
+            </Button>
+        </HBox>
+    </VBox>
+</StackPane>
