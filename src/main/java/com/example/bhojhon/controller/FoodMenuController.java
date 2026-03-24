@@ -7,10 +7,18 @@ import com.example.bhojhon.model.Restaurant;
 import com.example.bhojhon.util.BaseController;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Callback;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+
+import java.util.List;
 
 public class FoodMenuController extends BaseController {
 
@@ -18,25 +26,7 @@ public class FoodMenuController extends BaseController {
     private Label restaurantInfoLabel;
 
     @FXML
-    private TableView<FoodItem> menuTableView;
-
-    @FXML
-    private TableColumn<FoodItem, String> imageColumn; // <-- Image column
-
-    @FXML
-    private TableColumn<FoodItem, String> nameColumn;
-
-    @FXML
-    private TableColumn<FoodItem, String> categoryColumn;
-
-    @FXML
-    private TableColumn<FoodItem, String> descriptionColumn;
-
-    @FXML
-    private TableColumn<FoodItem, Double> priceColumn;
-
-    @FXML
-    private TableColumn<FoodItem, Void> actionColumn;
+    private FlowPane menuGrid;
 
     @FXML
     private Label cartCountLabel;
@@ -49,163 +39,106 @@ public class FoodMenuController extends BaseController {
 
         if (selectedRestaurant != null) {
             restaurantInfoLabel.setText(selectedRestaurant.getName() + " - " + selectedRestaurant.getCuisine());
-
-            setupImageColumn(); // Load images in the table
-            setupOtherColumns(); // Name, category, description, price
-            setupActionColumn(); // "Add to Cart" button
-
-            // Load all food items for this restaurant
-            var foodItems = DataManager.getInstance().getFoodItemsByRestaurantId(selectedRestaurant.getId());
-            menuTableView.getItems().addAll(foodItems);
+            refreshGrid();
         }
 
         updateCartCount();
     }
 
-    /** Setup image column to display network images */
-    private void setupImageColumn() {
-        // Bind image URL from FoodItem
-        imageColumn.setCellValueFactory(
-                cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getImageUrl()));
-
-        // Display images inside the table
-        imageColumn.setCellFactory(column -> new TableCell<>() {
-            private final ImageView imageView = new ImageView();
-
-            {
-                imageView.setFitHeight(60);
-                imageView.setFitWidth(60);
-                imageView.setPreserveRatio(true);
+    private void refreshGrid() {
+        if (selectedRestaurant != null) {
+            List<FoodItem> foodItems = DataManager.getInstance().getFoodItemsByRestaurantId(selectedRestaurant.getId());
+            menuGrid.getChildren().clear();
+            for (FoodItem item : foodItems) {
+                menuGrid.getChildren().add(createFoodCard(item));
             }
+            updateCartCount();
+        }
+    }
 
-            @Override
-            protected void updateItem(String imageUrl, boolean empty) {
-                super.updateItem(imageUrl, empty);
-                if (empty || imageUrl == null || imageUrl.isEmpty()) {
-                    setGraphic(null);
-                } else {
-                    // <-- Replace this URL with your real image URL if needed
-                    imageView.setImage(new Image(imageUrl, true));
-                    setGraphic(imageView);
-                    setAlignment(Pos.CENTER);
-                }
+    private VBox createFoodCard(FoodItem item) {
+        VBox card = new VBox(12);
+        card.getStyleClass().add("fm-food-card");
+
+        ImageView imageView = new ImageView();
+        imageView.setFitHeight(130);
+        imageView.setFitWidth(220);
+        imageView.setPreserveRatio(false);
+        String url = item.getImageUrl();
+        if (url != null && !url.isEmpty()) {
+            try {
+                imageView.setImage(new Image(url, true));
+            } catch (Exception e) {
+                // Ignore missing images natively
             }
-        });
+        }
+        
+        // Wrap image safely with subtle clip styling
+        VBox imageWrapper = new VBox(imageView);
+        imageWrapper.setAlignment(Pos.CENTER);
+        imageWrapper.setStyle("-fx-background-color: #f1f5f9; -fx-background-radius: 8px;");
+        imageWrapper.setMinHeight(130);
+
+        Label nameLabel = new Label(item.getName());
+        nameLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;");
+        nameLabel.setWrapText(true);
+
+        Label descLabel = new Label(item.getDescription());
+        descLabel.setStyle("-fx-font-size: 13px; -fx-text-fill: #64748b;");
+        descLabel.setWrapText(true);
+        descLabel.setMinHeight(40);
+        descLabel.setMaxHeight(40);
+
+        Label priceLabel = new Label(item.getFormattedPrice());
+        priceLabel.setStyle("-fx-font-size: 17px; -fx-font-weight: 900; -fx-text-fill: #16a34a;");
+
+        HBox actionBox = createActionBox(item);
+
+        HBox bottomBox = new HBox(10, priceLabel, new Region(), actionBox);
+        HBox.setHgrow(bottomBox.getChildren().get(1), Priority.ALWAYS);
+        bottomBox.setAlignment(Pos.CENTER);
+
+        card.getChildren().addAll(imageWrapper, nameLabel, descLabel, bottomBox);
+        return card;
     }
 
-    /** Setup name, category, description, and price columns */
-    private void setupOtherColumns() {
-        nameColumn.setCellValueFactory(
-                cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getName()));
+    private HBox createActionBox(FoodItem item) {
+        int qty = CartManager.getInstance().getQuantity(item);
+        HBox box = new HBox(8);
+        box.setAlignment(Pos.CENTER);
 
-        categoryColumn.setCellValueFactory(
-                cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getCategory()));
+        if (qty > 0) {
+            Button minusBtn = new Button("-");
+            String btnStyle = "-fx-min-width: 32px; -fx-min-height: 32px; -fx-background-radius: 50%; -fx-font-weight: bold; -fx-cursor: hand;";
+            minusBtn.setStyle(btnStyle + "-fx-background-color: #fee2e2; -fx-text-fill: #ef4444;");
+            minusBtn.setOnAction(e -> {
+                CartManager.getInstance().addItem(item, -1);
+                refreshGrid();
+            });
 
-        descriptionColumn.setCellValueFactory(
-                cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getDescription()));
+            Label qtyLabel = new Label(String.valueOf(qty));
+            qtyLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1e293b;");
 
-        priceColumn.setCellValueFactory(
-                cellData -> new javafx.beans.property.SimpleObjectProperty<>(cellData.getValue().getPrice()));
+            Button plusBtn = new Button("+");
+            plusBtn.setStyle(btnStyle + "-fx-background-color: #dcfce7; -fx-text-fill: #22c55e;");
+            plusBtn.setOnAction(e -> {
+                CartManager.getInstance().addItem(item, 1);
+                refreshGrid();
+            });
 
-        // Format price with ৳
-        priceColumn.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(Double price, boolean empty) {
-                super.updateItem(price, empty);
-                setText((empty || price == null) ? null : String.format("৳%.0f", price));
-            }
-        });
+            box.getChildren().addAll(minusBtn, qtyLabel, plusBtn);
+        } else {
+            Button addBtn = new Button("Add to Cart");
+            addBtn.setStyle("-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20px; -fx-padding: 8 16; -fx-cursor: hand;");
+            addBtn.setOnAction(e -> {
+                CartManager.getInstance().addItem(item, 1);
+                refreshGrid();
+            });
+            box.getChildren().add(addBtn);
+        }
+        return box;
     }
 
-    /** Setup "Add to Cart" button for each row */
-    private void setupActionColumn() {
-        Callback<TableColumn<FoodItem, Void>, TableCell<FoodItem, Void>> cellFactory = new Callback<>() {
-            @Override
-            public TableCell<FoodItem, Void> call(final TableColumn<FoodItem, Void> param) {
-                return new TableCell<>() {
-                    // Components for "Add" state
-                    private final Button addBtn = new Button("Add");
-
-                    // Components for "Quantity" state
-                    private final Button minusBtn = new Button("-");
-                    private final Button plusBtn = new Button("+");
-                    private final Label qtyLabel = new Label();
-                    private final javafx.scene.layout.HBox qtyPane = new javafx.scene.layout.HBox(10, minusBtn,
-                            qtyLabel, plusBtn);
-
-                    {
-                        // Add Button Style
-                        addBtn.setStyle("-fx-background-color: linear-gradient(to right, #1A73E8, #4285F4); " +
-                                "-fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-min-width: 80px;");
-                        addBtn.setOnAction(event -> {
-                            FoodItem foodItem = getTableRow().getItem();
-                            if (foodItem != null) {
-                                addToCart(foodItem);
-                            }
-                        });
-
-                        // Qty Pane Style
-                        qtyPane.setAlignment(Pos.CENTER);
-                        String btnStyle = "-fx-min-width: 30px; -fx-background-radius: 50%; -fx-font-weight: bold;";
-                        minusBtn.setStyle(btnStyle + "-fx-background-color: #ffebee; -fx-text-fill: #c62828;");
-                        plusBtn.setStyle(btnStyle + "-fx-background-color: #e8f5e9; -fx-text-fill: #2e7d32;");
-                        qtyLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
-
-                        minusBtn.setOnAction(event -> {
-                            FoodItem item = getTableRow().getItem();
-                            if (item != null) {
-                                updateQuantityInCart(item, -1);
-                            }
-                        });
-                        plusBtn.setOnAction(event -> {
-                            FoodItem item = getTableRow().getItem();
-                            if (item != null) {
-                                updateQuantityInCart(item, 1);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        FoodItem foodItem = getTableRow() == null ? null : (FoodItem) getTableRow().getItem();
-                        if (empty || foodItem == null) {
-                            setGraphic(null);
-                        } else {
-                            int quantity = CartManager.getInstance().getQuantity(foodItem);
-
-                            if (quantity > 0) {
-                                qtyLabel.setText(String.valueOf(quantity));
-                                setGraphic(qtyPane);
-                            } else {
-                                setGraphic(addBtn);
-                            }
-                            setAlignment(Pos.CENTER);
-                        }
-                    }
-                };
-            }
-        };
-        actionColumn.setCellFactory(cellFactory);
-    }
-
-    /** Update quantity helper */
-    private void updateQuantityInCart(FoodItem foodItem, int delta) {
-        CartManager.getInstance().addItem(foodItem, delta);
-        updateCartCount();
-        menuTableView.refresh(); // Refresh to update buttons
-    }
-
-    /** Add item to cart */
-    private void addToCart(FoodItem foodItem) {
-        CartManager.getInstance().addItem(foodItem, 1);
-        updateCartCount();
-        menuTableView.refresh(); // Refresh to show qty controls
-        // showAlert("Added to cart: " + foodItem.getName(),
-        // Alert.AlertType.INFORMATION); // Removed alert for smoother flow
-    }
-
-    /** Update cart count display */
     private void updateCartCount() {
         int count = CartManager.getInstance().getItemCount();
         cartCountLabel.setText("Cart: " + count + " items");
@@ -225,7 +158,6 @@ public class FoodMenuController extends BaseController {
         goBack();
     }
 
-    /** Show alert dialog */
     private void showAlert(String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle("Food Menu");

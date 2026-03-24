@@ -1,98 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/17"
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.bhojhon.controller.StationListController"
-           alignment="CENTER">
+           styleClass="ts-root"
+           stylesheets="@styles.css">
 
     <!-- Background Image -->
-    <ImageView preserveRatio="false">
+    <ImageView opacity="0.15" fitWidth="${rootPane.width}" fitHeight="${rootPane.height}" preserveRatio="false">
         <image>
-            <Image url="https://i.pinimg.com/1200x/36/17/81/361781f10c9a7749ceea0caf8e73a8bf.jpg"/>
+            <Image url="@train search bg.png"/>
         </image>
-        <fitWidth>1920</fitWidth>
-        <fitHeight>1080</fitHeight>
     </ImageView>
 
-    <!-- Dark Overlay -->
-    <Pane style="
-        -fx-background-color: linear-gradient(
-            to bottom,
-            rgba(0,0,0,0.45),
-            rgba(0,0,0,0.65)
-        );
-    "/>
+    <!-- Decorative Box (glass effect) around the main card -->
+    <StackPane maxWidth="680" maxHeight="680"
+               style="-fx-background-color: white; -fx-background-radius: 36px; -fx-padding: 15px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 30, 0, 0, 15);">
+        
+        <VBox alignment="CENTER" spacing="30" styleClass="ts-card" maxWidth="650" maxHeight="650" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets top="40" right="40" bottom="40" left="40"/>
+            </padding>
 
-    <!-- Main Content Card -->
-    <VBox spacing="24"
-          prefWidth="820"
-          minWidth="720"
-          maxWidth="900"
-          prefHeight="600"
-          maxHeight="720"
-          style="
-            -fx-background-color: rgba(255,255,255,0.9);
-            -fx-background-radius: 24;
-            -fx-padding: 32;
-            -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 20, 0, 0, 10);
-          ">
+            <!-- Header Section -->
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="Select Station" styleClass="ts-page-title" style="-fx-font-size: 36px;"/>
+                <Label fx:id="trainInfoLabel" styleClass="ts-page-subtitle" style="-fx-font-size: 18px;"/>
+            </VBox>
 
-        <!-- Header -->
-        <VBox spacing="6">
-            <Label text="Select Station"
-                   style="-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
-            <Label fx:id="trainInfoLabel"
-                   style="-fx-font-size: 15; -fx-text-fill: #4B5563;"/>
+            <Label text="Available Stations" styleClass="ts-section-header" style="-fx-font-size: 20px;"/>
+
+            <ListView fx:id="stationListView" 
+                      VBox.vgrow="ALWAYS" 
+                      styleClass="sl-list-view"/>
+            
+            <!-- Action Buttons -->
+            <HBox spacing="20" alignment="CENTER_RIGHT">
+                <Button text="← Back" onAction="#handleBack" styleClass="ts-btn-secondary" prefWidth="130" prefHeight="50" style="-fx-font-size: 16px;"/>
+                <Button text="Select Station" onAction="#handleSelectStation" styleClass="ts-btn-primary" prefHeight="50" prefWidth="180" style="-fx-font-size: 16px;"/>
+            </HBox>
         </VBox>
+    </StackPane>
 
-        <!-- Station List -->
-        <VBox spacing="12" VBox.vgrow="ALWAYS">
-            <Label text="Available Stations"
-                   style="-fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: #1F2937;"/>
-
-            <ListView fx:id="stationListView"
-                      VBox.vgrow="ALWAYS"
-                      style="
-                        -fx-background-color: rgba(249,250,251,0.96);
-                        -fx-background-radius: 14;
-                        -fx-padding: 6;
-                        -fx-border-color: #E5E7EB;
-                        -fx-border-radius: 14;
-                      "/>
-        </VBox>
-
-        <!-- Action Buttons -->
-        <HBox spacing="16" alignment="CENTER_RIGHT">
-
-            <Button text="Back"
-                    onAction="#handleBack"
-                    prefWidth="120"
-                    style="
-                      -fx-background-color: #E5E7EB;
-                      -fx-text-fill: #1F2937;
-                      -fx-font-weight: bold;
-                      -fx-background-radius: 12;
-                      -fx-font-size: 14;
-                    "/>
-
-            <Button text="Select Station"
-                    onAction="#handleSelectStation"
-                    prefWidth="170"
-                    style="
-                      -fx-background-color: linear-gradient(to right, #2563EB, #3B82F6);
-                      -fx-text-fill: white;
-                      -fx-font-weight: bold;
-                      -fx-background-radius: 12;
-                      -fx-font-size: 14;
-                      -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.6), 10, 0, 0, 4);
-                    "/>
-
-        </HBox>
-
-    </VBox>
 </StackPane>

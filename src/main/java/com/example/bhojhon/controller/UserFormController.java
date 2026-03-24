@@ -49,9 +49,14 @@ public class UserFormController extends BaseController {
 
         // Read date from DatePicker; fall back to text field if needed
         String date = "";
-        if (journeyDatePicker != null && journeyDatePicker.getValue() != null) {
-            date = journeyDatePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        } else if (journeyDateField != null) {
+        if (journeyDatePicker != null) {
+            if (journeyDatePicker.getValue() != null) {
+                date = journeyDatePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            } else if (journeyDatePicker.getEditor().getText() != null && !journeyDatePicker.getEditor().getText().trim().isEmpty()) {
+                date = journeyDatePicker.getEditor().getText().trim();
+            }
+        }
+        if (date.isEmpty() && journeyDateField != null) {
             date = journeyDateField.getText().trim();
         }
 
@@ -76,6 +81,28 @@ public class UserFormController extends BaseController {
     @FXML
     private void handleBack() {
         goBack(); // Uses BaseController's goBack
+    }
+
+    @FXML
+    private void handleAutoLogin() {
+        String name = "Auto Passenger";
+        String phone = "01700000000";
+        String email = "auto@example.com";
+        String seat = "KA-12";
+        String pnr = "1234567890";
+        String trainNum = "101";
+        String date = "25-03-2026";
+        String note = "Auto login note";
+        
+        com.example.bhojhon.model.TicketInfo ticket = new com.example.bhojhon.model.TicketInfo(
+                name, phone, pnr, trainNum, seat, date, note);
+        new com.example.bhojhon.data.DatabaseHelper().saveTicket(ticket);
+
+        com.example.bhojhon.data.CartManager cart = com.example.bhojhon.data.CartManager.getInstance();
+        cart.setPassengerDetails(name, phone, seat, note, pnr, date, email);
+        cart.setSelectedTrainNumber(trainNum);
+
+        navigateTo("/com/example/bhojhon/train-search-view.fxml");
     }
 
     private boolean validateInput(String name, String phone, String email, String seat, String pnr, String train,

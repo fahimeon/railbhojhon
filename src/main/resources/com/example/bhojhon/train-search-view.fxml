@@ -8,22 +8,32 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 
 <StackPane xmlns="http://javafx.com/javafx/17"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.bhojhon.controller.TrainSearchController"
+           fx:id="rootPane"
            styleClass="ts-root">
 
-    <VBox alignment="CENTER" spacing="25" maxWidth="550" maxHeight="600">
+    <ImageView opacity="0.15" fitWidth="${rootPane.width}" fitHeight="${rootPane.height}" preserveRatio="false">
+        <image>
+            <Image url="@train search bg.png"/>
+        </image>
+    </ImageView>
+
+    <VBox alignment="CENTER" spacing="40" maxWidth="680" maxHeight="650">
         
         <!-- Header Section -->
         <VBox alignment="CENTER" spacing="8">
-            <Label text="Train Search" styleClass="ts-page-title"/>
-            <Label text="Find your train and pre-order meals easily" styleClass="ts-page-subtitle"/>
+            <Label text="Train Search" styleClass="ts-page-title" style="-fx-font-size: 48px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.7), 15, 0, 0, 5); -fx-font-weight: 900;"/>
+            <Label text="Find your train and pre-order meals easily" styleClass="ts-page-subtitle" style="-fx-font-size: 18px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 3);"/>
         </VBox>
 
-        <!-- Search Form & Result Card -->
-        <VBox spacing="0" styleClass="ts-card">
+        <!-- Search Form & Result Card wrapped in a Glass Pane -->
+        <StackPane maxWidth="680" style="-fx-background-color: white; -fx-background-radius: 36px; -fx-padding: 15px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 30, 0, 0, 15);">
+            <VBox spacing="0" styleClass="ts-card" minHeight="380">
             
             <!-- Search Form Area -->
             <VBox spacing="20" styleClass="ts-search-area">
@@ -60,14 +70,16 @@
             </VBox>
         </VBox>
 
+        </StackPane>
+
         <!-- Actions -->
         <HBox spacing="15" alignment="CENTER_RIGHT">
-            <Button text="Back"
+            <Button text="← Back"
                     onAction="#handleBack"
-                    styleClass="ts-btn-secondary"/>
+                    styleClass="ts-btn-secondary" prefWidth="130" prefHeight="50" style="-fx-font-size: 16px;"/>
             <Button text="View Stations"
                     onAction="#handleViewStations"
-                    styleClass="ts-btn-primary"/>
+                    styleClass="ts-btn-primary" prefHeight="50" prefWidth="180" style="-fx-font-size: 16px;"/>
         </HBox>
         
     </VBox>

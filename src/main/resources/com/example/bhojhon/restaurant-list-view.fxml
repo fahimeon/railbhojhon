@@ -1,111 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/17"
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.bhojhon.controller.RestaurantListController"
-           alignment="CENTER">
+           styleClass="ts-root"
+           stylesheets="@styles.css">
 
-    <!-- Background Network Image -->
-    <ImageView preserveRatio="false">
+    <!-- Background Image -->
+    <ImageView opacity="0.15" fitWidth="${rootPane.width}" fitHeight="${rootPane.height}" preserveRatio="false">
         <image>
-            <Image url="https://i.pinimg.com/1200x/34/eb/75/34eb75d5d66fc39656f322ac93bc2206.jpg"/>
+            <Image url="@select restaurant bg.png"/>
         </image>
-        <fitWidth>1920</fitWidth>
-        <fitHeight>1080</fitHeight>
     </ImageView>
 
-    <!-- Dark Overlay -->
-    <Pane style="
-        -fx-background-color: linear-gradient(
-            to bottom,
-            rgba(0,0,0,0.45),
-            rgba(0,0,0,0.65)
-        );
-    "/>
+    <!-- Decorative Box (glass effect) around the main card -->
+    <StackPane maxWidth="680" maxHeight="680"
+               style="-fx-background-color: white; -fx-background-radius: 36px; -fx-padding: 15px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 30, 0, 0, 15);">
+        
+        <VBox alignment="CENTER" spacing="30" styleClass="ts-card" maxWidth="650" maxHeight="650" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets top="40" right="40" bottom="40" left="40"/>
+            </padding>
 
-    <!-- Main Content Card -->
-    <VBox spacing="30"
-          prefWidth="820"
-          minWidth="720"
-          maxWidth="900"
-          prefHeight="620"
-          maxHeight="750"
-          style="
-            -fx-background-color: rgba(255,255,255,0.94);
-            -fx-background-radius: 24;
-            -fx-padding: 38;
-            -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 18, 0, 0, 8);
-          ">
+            <!-- Header Section -->
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="Select Restaurant" styleClass="ts-page-title" style="-fx-font-size: 36px;"/>
+                <Label fx:id="stationInfoLabel" styleClass="ts-page-subtitle" style="-fx-font-size: 18px;"/>
+            </VBox>
 
-        <!-- Header -->
-        <VBox spacing="10">
-            <Label text="Select Restaurant"
-                   style="
-                     -fx-font-size: 34;
-                     -fx-font-weight: 800;
-                     -fx-text-fill: #0F172A;
-                   "/>
+            <Label text="Available Restaurants" styleClass="ts-section-header" style="-fx-font-size: 20px;"/>
 
-            <Label fx:id="stationInfoLabel"
-                   style="
-                     -fx-font-size: 18;
-                     -fx-font-weight: 600;
-                     -fx-text-fill: #374151;
-                   "/>
+            <ListView fx:id="restaurantListView" 
+                      VBox.vgrow="ALWAYS" 
+                      styleClass="sl-list-view"/>
+            
+            <!-- Action Buttons -->
+            <HBox spacing="20" alignment="CENTER_RIGHT">
+                <Button text="← Back" onAction="#handleBack" styleClass="ts-btn-secondary" prefWidth="130" prefHeight="50" style="-fx-font-size: 16px;"/>
+                <Button text="Select Restaurant" onAction="#handleSelectRestaurant" styleClass="ts-btn-primary" prefHeight="50" prefWidth="200" style="-fx-font-size: 16px;"/>
+            </HBox>
         </VBox>
+    </StackPane>
 
-        <!-- Restaurant List -->
-        <VBox spacing="14" VBox.vgrow="ALWAYS">
-            <Label text="Available Restaurants"
-                   style="
-                     -fx-font-size: 18;
-                     -fx-font-weight: 700;
-                     -fx-text-fill: #0F172A;
-                   "/>
-
-            <ListView fx:id="restaurantListView"
-                      VBox.vgrow="ALWAYS"
-                      style="
-                        -fx-background-color: rgba(249,250,251,0.98);
-                        -fx-background-radius: 16;
-                        -fx-padding: 10;
-                        -fx-border-color: #E5E7EB;
-                        -fx-border-radius: 16;
-                      "/>
-        </VBox>
-
-        <!-- Action Buttons -->
-        <HBox spacing="22" alignment="CENTER_RIGHT">
-
-            <Button text="Back"
-                    onAction="#handleBack"
-                    prefWidth="140"
-                    style="
-                      -fx-background-color: #E5E7EB;
-                      -fx-text-fill: #111827;
-                      -fx-font-weight: 700;
-                      -fx-background-radius: 14;
-                      -fx-font-size: 16;
-                    "/>
-
-            <Button text="View Menu"
-                    onAction="#handleSelectRestaurant"
-                    prefWidth="190"
-                    style="
-                      -fx-background-color: linear-gradient(to right, #2563EB, #3B82F6);
-                      -fx-text-fill: white;
-                      -fx-font-weight: 800;
-                      -fx-background-radius: 14;
-                      -fx-font-size: 16;
-                      -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.6), 10, 0, 0, 4);
-                    "/>
-
-        </HBox>
-
-    </VBox>
 </StackPane>

@@ -1171,30 +1171,49 @@
    ═══════════════════════════════════════════════════════════ */
 
 .ts-root {
-    -fx-background-color: #f3f6f9;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 85%, #0B6EF5, #004BCB);
 }
 
+
+
 .ts-page-title {
-    -fx-text-fill: #1e293b;
-    -fx-font-size: 32px;
-    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 38px;
+    -fx-font-weight: 800;
     -fx-font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 .ts-page-subtitle {
-    -fx-text-fill: #64748b;
-    -fx-font-size: 14px;
+    -fx-text-fill: #bfdbfe;
+    -fx-font-size: 15px;
+    -fx-font-weight: 500;
 }
 
-.ts-card {
-    -fx-background-color: #ffffff;
+.fm-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+.fm-food-card {
+    -fx-background-color: white;
     -fx-background-radius: 16px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 20, 0, 0, 10);
+    -fx-border-radius: 16px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-padding: 16px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 8, 0, 0, 4);
+    -fx-pref-width: 250px;
+    -fx-min-height: 280px;
+}
+
+.fm-food-card:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.12), 12, 0, 0, 6);
+    -fx-border-color: #cbd5e1;
 }
 
 .ts-search-area {
-    -fx-background-color: #ffffff;
-    -fx-background-radius: 16px 16px 0 0;
+    -fx-background-color: transparent;
 }
 
 .ts-field-label {
@@ -1206,44 +1225,47 @@
 .ts-text-field {
     -fx-background-color: #f8fafc;
     -fx-border-color: #e2e8f0;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-padding: 12 16;
-    -fx-font-size: 14px;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 16 24;
+    -fx-font-size: 16px;
     -fx-text-fill: #1e293b;
+    -fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.02), 5, 0, 0, 2);
 }
 
 .ts-text-field:focused {
     -fx-border-color: #3b82f6;
     -fx-border-width: 2px;
     -fx-background-color: #ffffff;
+    -fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.02), 5, 0, 0, 2), dropshadow(three-pass-box, rgba(59,130,246,0.15), 10, 0, 0, 0);
 }
 
 .ts-hint-text {
     -fx-text-fill: #94a3b8;
     -fx-font-size: 12px;
+    -fx-padding: 5 0 0 10;
 }
 
 .ts-btn-search {
     -fx-background-color: #3b82f6;
     -fx-text-fill: #ffffff;
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-cursor: hand;
-    -fx-background-radius: 10px;
-    -fx-padding: 12 24;
+    -fx-background-radius: 30px;
+    -fx-padding: 16 32;
+    -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.3), 10, 0, 0, 4);
+    -fx-border-width: 0;
 }
 
 .ts-btn-search:hover {
     -fx-background-color: #2563eb;
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.4), 12, 0, 0, 4);
+    -fx-effect: dropshadow(three-pass-box, rgba(37,99,235,0.4), 14, 0, 0, 6);
 }
 
 .ts-result-container {
-    -fx-background-color: #f8fafc;
-    -fx-background-radius: 0 0 16px 16px;
-    -fx-border-color: #f1f5f9;
-    -fx-border-width: 1 0 0 0;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .ts-section-header {
@@ -1265,36 +1287,35 @@
 
 /* Actions */
 .ts-btn-primary {
-    -fx-background-color: #10b981;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #2563eb;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-cursor: hand;
-    -fx-background-radius: 10px;
+    -fx-background-radius: 12px;
     -fx-padding: 12 24;
 }
 
 .ts-btn-primary:hover {
-    -fx-background-color: #059669;
-    -fx-effect: dropshadow(three-pass-box, rgba(16, 185, 129, 0.4), 12, 0, 0, 4);
+    -fx-background-color: #f8fafc;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.4), 14, 0, 0, 4);
 }
 
 .ts-btn-secondary {
     -fx-background-color: #ffffff;
-    -fx-text-fill: #475569;
+    -fx-text-fill: #2563eb;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-cursor: hand;
-    -fx-background-radius: 10px;
-    -fx-border-color: #cbd5e1;
-    -fx-border-radius: 10px;
-    -fx-border-width: 1.5px;
+    -fx-background-radius: 12px;
+    -fx-border-width: 0;
     -fx-padding: 12 24;
 }
 
 .ts-btn-secondary:hover {
-    -fx-background-color: #f1f5f9;
-    -fx-border-color: #94a3b8;
+    -fx-background-color: #f8fafc;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.4), 14, 0, 0, 4);
+    -fx-underline: false;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1612,4 +1633,48 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-background-insets: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STATION LIST SCREEN
+   ═══════════════════════════════════════════════════════════ */
+.sl-list-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 5px;
+}
+
+.sl-list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 8px; /* Gap between boxes */
+}
+
+/* The inner box for each station */
+.station-box {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-padding: 16px 22px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.06), 8, 0, 0, 4);
+    -fx-min-height: 50px;
+}
+
+.station-box .label {
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+/* Selected state styling applied dynamically through parent .list-cell */
+.sl-list-view .list-cell:selected .station-box {
+    -fx-background-color: #eff6ff;
+    -fx-border-color: #2563eb;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(37,99,235,0.25), 12, 0, 0, 5);
+}
+
+.sl-list-view .list-cell:selected .station-box .label {
+    -fx-text-fill: #2563eb;
 }

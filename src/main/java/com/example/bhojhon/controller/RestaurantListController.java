@@ -5,7 +5,6 @@ import com.example.bhojhon.model.Restaurant;
 import com.example.bhojhon.model.Station;
 import com.example.bhojhon.util.BaseController;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -56,34 +55,22 @@ public class RestaurantListController extends BaseController {
 
                     // Restaurant Name (Large + Bold)
                     Label nameLabel = new Label(restaurant.getName());
-                    nameLabel.setStyle(
-                            "-fx-font-size: 18px;" +
-                                    "-fx-font-weight: bold;" +
-                                    "-fx-text-fill: #111827;");
+                    nameLabel.setStyle("-fx-font-size: 19px; -fx-font-weight: bold; -fx-text-fill: #1e293b;");
 
                     // Cuisine / Type (Secondary text)
                     Label cuisineLabel = new Label(restaurant.getCuisine());
-                    cuisineLabel.setStyle(
-                            "-fx-font-size: 14px;" +
-                                    "-fx-text-fill: #4B5563;");
+                    cuisineLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #64748b;");
 
                     // Rating (Highlighted)
                     Label ratingLabel = new Label("★ " + restaurant.getRating());
-                    ratingLabel.setStyle(
-                            "-fx-font-size: 14px;" +
-                                    "-fx-font-weight: bold;" +
-                                    "-fx-text-fill: #F59E0B;");
+                    ratingLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #f59e0b;");
 
                     VBox textBox = new VBox(4, nameLabel, cuisineLabel);
                     HBox.setHgrow(textBox, Priority.ALWAYS);
 
                     HBox row = new HBox(12, textBox, ratingLabel);
-                    row.setPadding(new Insets(12));
-                    row.setStyle(
-                            "-fx-background-color: white;" +
-                                    "-fx-background-radius: 12;" +
-                                    "-fx-border-color: #E5E7EB;" +
-                                    "-fx-border-radius: 12;");
+                    row.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                    row.getStyleClass().add("station-box");
 
                     setGraphic(row);
                     setText(null);

@@ -37,15 +37,21 @@ public class StationListController extends BaseController {
             // Populate station list
             stationListView.getItems().addAll(selectedTrain.getStations());
 
-            // Set custom cell factory to display station info
+            // Set custom cell factory to display station info inside square rounded boxes
             stationListView.setCellFactory(param -> new javafx.scene.control.ListCell<>() {
                 @Override
                 protected void updateItem(Station station, boolean empty) {
                     super.updateItem(station, empty);
                     if (empty || station == null) {
                         setText(null);
+                        setGraphic(null);
                     } else {
-                        setText(station.getDisplayInfo());
+                        setText(null);
+                        javafx.scene.control.Label nameLabel = new javafx.scene.control.Label(station.getDisplayInfo());
+                        javafx.scene.layout.HBox box = new javafx.scene.layout.HBox(nameLabel);
+                        box.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                        box.getStyleClass().add("station-box");
+                        setGraphic(box);
                     }
                 }
             });
