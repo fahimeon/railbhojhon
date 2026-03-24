@@ -5,146 +5,113 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.bhojhon.controller.UserFormController"
-            styleClass="pf-root"
-            stylesheets="@styles.css">
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.bhojhon.controller.UserFormController"
+           styleClass="login-root"
+           stylesheets="@styles.css">
 
-    <!-- ═══════════════ LEFT SIDEBAR ═══════════════ -->
-    <left>
-        <VBox styleClass="rs-sidebar" prefWidth="240">
-            <padding><Insets top="28" right="20" bottom="28" left="20"/></padding>
-            <spacing>0</spacing>
+    <!-- Decorative background elements -->
+    <AnchorPane>
+        <Region AnchorPane.rightAnchor="0" AnchorPane.topAnchor="150" prefWidth="120" prefHeight="48" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 24 0 0 24;" />
+        <Region AnchorPane.leftAnchor="0" AnchorPane.topAnchor="450" prefWidth="180" prefHeight="64" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 0 32 32 0;" />
+        <Region AnchorPane.leftAnchor="200" AnchorPane.bottomAnchor="0" prefWidth="80" prefHeight="140" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 12 12 0 0;" />
+    </AnchorPane>
 
-            <!-- Back Button -->
-            <Button text="← Back" onAction="#handleBack" styleClass="pf-back-btn"/>
+    <!-- Main Content -->
+    <VBox alignment="CENTER" spacing="20">
+        <!-- Header -->
+        <VBox alignment="CENTER" spacing="-5">
+            <Label text="Passenger Details" styleClass="menu-main-title" style="-fx-font-size: 36px;"/>
+        </VBox>
 
-            <!-- Page Title -->
-            <VBox spacing="0">
-                <VBox.margin><Insets top="60"/></VBox.margin>
-                <Label text="Passenger" styleClass="pf-side-title"/>
-                <Label text="Details" styleClass="pf-side-title-accent"/>
-            </VBox>
-
-            <!-- Description -->
-            <Label text="Please enter your journey details to proceed with the catering order." 
-                   wrapText="true" styleClass="pf-side-desc">
-                <VBox.margin><Insets top="15"/></VBox.margin>
+        <!-- Form Card -->
+        <VBox styleClass="login-card-container" spacing="25" maxWidth="650" alignment="TOP_CENTER">
+            
+            <Label text="Please enter your journey details" styleClass="login-subtitle">
+                <VBox.margin><Insets top="-10" bottom="5"/></VBox.margin>
             </Label>
 
-            <!-- Spacer -->
-            <Region VBox.vgrow="ALWAYS"/>
-
-            <!-- Step indicator -->
-            <HBox spacing="12" alignment="CENTER_LEFT">
-                <StackPane styleClass="rs-step-badge">
-                    <Label text="1" styleClass="rs-step-badge-label"/>
-                </StackPane>
-                <VBox spacing="2">
-                    <Label text="Passenger Info" styleClass="rs-step-title"/>
-                    <Label text="Step 2 of 3" styleClass="rs-step-sub"/>
+            <!-- PERSONAL INFORMATION -->
+            <VBox spacing="10">
+                <Label text="PERSONAL INFORMATION" styleClass="login-field-label" style="-fx-text-fill: #9ca3af; -fx-font-size: 11px; -fx-letter-spacing: 1px;"/>
+                <VBox spacing="5">
+                    <Label text="Full Name" styleClass="login-field-label"/>
+                    <TextField fx:id="nameField" promptText="e.g. John Doe" styleClass="login-field"/>
                 </VBox>
-            </HBox>
 
-            <!-- Progress bar -->
-            <HBox>
-                <VBox.margin><Insets top="10"/></VBox.margin>
-                <Region styleClass="rs-progress-filled" prefWidth="55" prefHeight="3"/>
-                <Region styleClass="rs-progress-empty" HBox.hgrow="ALWAYS" prefHeight="3"/>
+                <GridPane hgap="20">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+                    <children>
+                        <VBox spacing="5" GridPane.columnIndex="0">
+                            <Label text="Phone Number" styleClass="login-field-label"/>
+                            <TextField fx:id="phoneField" promptText="01xxxxxxxxx" styleClass="login-field"/>
+                        </VBox>
+                        <VBox spacing="5" GridPane.columnIndex="1">
+                            <Label text="Email Address" styleClass="login-field-label"/>
+                            <TextField fx:id="emailField" promptText="john@example.com" styleClass="login-field"/>
+                        </VBox>
+                    </children>
+                </GridPane>
+            </VBox>
+
+            <!-- JOURNEY DETAILS -->
+            <VBox spacing="10">
+                <Label text="JOURNEY DETAILS" styleClass="login-field-label" style="-fx-text-fill: #9ca3af; -fx-font-size: 11px; -fx-letter-spacing: 1px;"/>
+                
+                <GridPane hgap="20" vgap="12">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+                    <children>
+                        <VBox spacing="5" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                            <Label text="Train Number" styleClass="login-field-label"/>
+                            <TextField fx:id="trainNumberField" promptText="e.g. 701" styleClass="login-field"/>
+                        </VBox>
+                        <VBox spacing="5" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                            <Label text="PNR Number" styleClass="login-field-label"/>
+                            <TextField fx:id="pnrField" promptText="10-digit PNR" styleClass="login-field"/>
+                        </VBox>
+                        <VBox spacing="5" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                            <Label text="Seat / Coach" styleClass="login-field-label"/>
+                            <TextField fx:id="seatField" promptText="e.g. B2 - 45" styleClass="login-field"/>
+                        </VBox>
+                        <VBox spacing="5" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                            <Label text="Journey Date" styleClass="login-field-label"/>
+                            <DatePicker fx:id="journeyDatePicker" promptText="DD-MM-YYYY" prefHeight="45" maxWidth="Infinity" styleClass="login-date-picker"/>
+                        </VBox>
+                    </children>
+                </GridPane>
+
+                <!-- Delivery Instructions -->
+                <VBox spacing="5">
+                    <VBox.margin><Insets top="5"/></VBox.margin>
+                    <Label text="Delivery Instructions" styleClass="login-field-label"/>
+                    <TextField fx:id="deliveryNoteField" promptText="e.g. Call before reaching..." styleClass="login-field"/>
+                </VBox>
+            </VBox>
+
+            <!-- Error Label -->
+            <Label fx:id="errorLabel" styleClass="login-error-label" visible="false"/>
+
+            <!-- Action Buttons -->
+            <HBox alignment="CENTER" spacing="20">
+                <Button text="← Back" onAction="#handleBack" styleClass="login-btn-secondary" prefWidth="120" prefHeight="45"/>
+                <Button text="Continue to Order" onAction="#handleSubmit" styleClass="login-btn-primary" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
             </HBox>
         </VBox>
-    </left>
+    </VBox>
 
-    <!-- ═══════════════ CENTER AREA ═══════════════ -->
-    <center>
-        <StackPane styleClass="rs-center-area">
-            <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
-
-            <!-- Form Card -->
-            <VBox styleClass="pf-form-card" spacing="25" maxWidth="650" alignment="TOP_CENTER">
-                <padding><Insets top="35" right="35" bottom="35" left="35"/></padding>
-
-                <!-- PERSONAL INFORMATION SECTION -->
-                <VBox spacing="12">
-                    <Label text="PERSONAL INFORMATION" styleClass="pf-section-header"/>
-                    
-                    <VBox spacing="5">
-                        <Label text="Full Name" styleClass="pf-field-label"/>
-                        <TextField fx:id="nameField" promptText="e.g. MD AKHLAK UD JAMAN" styleClass="pf-text-field"/>
-                    </VBox>
-
-                    <GridPane hgap="20">
-                        <columnConstraints>
-                            <ColumnConstraints percentWidth="50"/>
-                            <ColumnConstraints percentWidth="50"/>
-                        </columnConstraints>
-                        <children>
-                            <VBox spacing="5" GridPane.columnIndex="0">
-                                <Label text="Phone Number" styleClass="pf-field-label"/>
-                                <TextField fx:id="phoneField" promptText="01xxxxxxxxx" styleClass="pf-text-field"/>
-                            </VBox>
-                            <VBox spacing="5" GridPane.columnIndex="1">
-                                <Label text="Email Address" styleClass="pf-field-label"/>
-                                <TextField fx:id="emailField" promptText="akhlak@example.com" styleClass="pf-text-field"/>
-                            </VBox>
-                        </children>
-                    </GridPane>
-                </VBox>
-
-                <!-- JOURNEY DETAILS SECTION -->
-                <VBox spacing="12">
-                    <Label text="JOURNEY DETAILS" styleClass="pf-section-header"/>
-                    
-                    <GridPane hgap="20" vgap="12">
-                        <columnConstraints>
-                            <ColumnConstraints percentWidth="50"/>
-                            <ColumnConstraints percentWidth="50"/>
-                        </columnConstraints>
-                        <children>
-                            <VBox spacing="5" GridPane.rowIndex="0" GridPane.columnIndex="0">
-                                <Label text="Train Number" styleClass="pf-field-label"/>
-                                <TextField fx:id="trainNumberField" promptText="e.g. 701" styleClass="pf-text-field"/>
-                            </VBox>
-                            <VBox spacing="5" GridPane.rowIndex="0" GridPane.columnIndex="1">
-                                <Label text="PNR Number" styleClass="pf-field-label"/>
-                                <TextField fx:id="pnrField" promptText="10-digit PNR" styleClass="pf-text-field"/>
-                            </VBox>
-                            <VBox spacing="5" GridPane.rowIndex="1" GridPane.columnIndex="0">
-                                <Label text="Seat / Coach" styleClass="pf-field-label"/>
-                                <TextField fx:id="seatField" promptText="e.g. B2 - 45" styleClass="pf-text-field"/>
-                            </VBox>
-                            <VBox spacing="5" GridPane.rowIndex="1" GridPane.columnIndex="1">
-                                <Label text="Journey Date" styleClass="pf-field-label"/>
-                                <DatePicker fx:id="journeyDatePicker" promptText="DD-MM-YYYY" prefHeight="40" maxWidth="Infinity" styleClass="pf-date-picker"/>
-                            </VBox>
-                        </children>
-                    </GridPane>
-
-                    <!-- Delivery Instructions -->
-                    <VBox spacing="5">
-                        <Label text="Delivery Instructions" styleClass="pf-field-label"/>
-                        <TextField fx:id="deliveryNoteField" promptText="e.g. Call before reaching..." styleClass="pf-text-field"/>
-                    </VBox>
-                </VBox>
-
-                <!-- Error Label -->
-                <Label fx:id="errorLabel" styleClass="pf-error-label" visible="false"/>
-
-                <!-- Submit Button -->
-                <HBox alignment="CENTER_RIGHT">
-                    <Button text="Continue " onAction="#handleSubmit" styleClass="rs-btn-primary" prefWidth="220"/>
-                </HBox>
-            </VBox>
-        </StackPane>
-    </center>
-
-</BorderPane>
+</StackPane>

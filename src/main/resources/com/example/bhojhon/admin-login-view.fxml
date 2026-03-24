@@ -4,102 +4,56 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.bhojhon.controller.AdminLoginController"
-            styleClass="pf-root"
-            stylesheets="@styles.css">
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.bhojhon.controller.AdminLoginController"
+           styleClass="login-root"
+           stylesheets="@styles.css">
 
-    <!-- ═══════════════ LEFT SIDEBAR ═══════════════ -->
-    <left>
-        <VBox styleClass="rs-sidebar" prefWidth="250">
-            <padding><Insets top="28" right="20" bottom="28" left="20"/></padding>
-            
-            <!-- Back Button -->
-            <Button text="← Back to Home" onAction="#handleBack" styleClass="pf-back-btn"/>
+    <!-- Decorative background elements similar to main menu -->
+    <AnchorPane>
+        <Region AnchorPane.rightAnchor="0" AnchorPane.topAnchor="150" prefWidth="120" prefHeight="48" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 24 0 0 24;" />
+        <Region AnchorPane.leftAnchor="0" AnchorPane.topAnchor="450" prefWidth="180" prefHeight="64" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 0 32 32 0;" />
+        <Region AnchorPane.leftAnchor="200" AnchorPane.bottomAnchor="0" prefWidth="80" prefHeight="140" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 12 12 0 0;" />
+    </AnchorPane>
 
-            <!-- Branding -->
-            <VBox spacing="0">
-                <VBox.margin><Insets top="60"/></VBox.margin>
-                <Label text="ADMIN PORTAL" styleClass="pf-section-header" style="-fx-text-fill: #8b96b5; -fx-font-size: 11px;"/>
-                <Label text="Admin Login" styleClass="pf-side-title">
-                    <VBox.margin><Insets top="10"/></VBox.margin>
-                </Label>
-                <HBox>
-                    <padding><Insets top="5"/></padding>
-                    <Label text="Secure Portal" styleClass="rs-btn-primary" 
-                           style="-fx-padding: 4 12; -fx-background-radius: 6; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                </HBox>
-            </VBox>
+    <!-- Main Content -->
+    <VBox alignment="CENTER" spacing="30">
+        <!-- Logo / Header -->
+        <VBox alignment="CENTER" spacing="-5">
+            <Label text="Bhojon OnRails" styleClass="menu-main-title" style="-fx-font-size: 42px;"/>
+            <Label text="ADMIN PORTAL" styleClass="menu-sub-title" style="-fx-font-size: 14px; -fx-letter-spacing: 2px;"/>
+        </VBox>
 
-            <!-- Description -->
-            <Label text="Sign in to manage the system." wrapText="true" styleClass="pf-side-desc">
-                <VBox.margin><Insets top="20"/></VBox.margin>
+        <!-- Login Card -->
+        <VBox styleClass="login-card-container" maxWidth="450" alignment="TOP_CENTER">
+            <Label text="Welcome Back" styleClass="login-title"/>
+            <Label text="Enter your credentials to manage the system" styleClass="login-subtitle">
+                <VBox.margin><Insets top="5" bottom="30"/></VBox.margin>
             </Label>
 
-            <!-- Spacer -->
-            <Region VBox.vgrow="ALWAYS"/>
-
-            <!-- Step indicator -->
-            <HBox spacing="12" alignment="CENTER_LEFT">
-                <StackPane styleClass="rs-step-badge">
-                    <Label text="1" styleClass="rs-step-badge-label"/>
-                </StackPane>
-                <VBox spacing="2">
-                    <Label text="Authentication" styleClass="rs-step-title"/>
-                    <Label text="Step 1 of 1" styleClass="rs-step-sub"/>
+            <VBox spacing="20" alignment="CENTER_LEFT">
+                <VBox spacing="8">
+                    <Label text="Email Address" styleClass="login-field-label"/>
+                    <TextField fx:id="emailField" promptText="admin@bhojon.com" styleClass="login-field"/>
                 </VBox>
-            </HBox>
-
-            <!-- Progress bar -->
-            <HBox>
-                <VBox.margin><Insets top="10"/></VBox.margin>
-                <Region styleClass="rs-progress-filled" HBox.hgrow="ALWAYS" prefHeight="3"/>
-            </HBox>
-        </VBox>
-    </left>
-
-    <!-- ═══════════════ CENTER AREA ═══════════════ -->
-    <center>
-        <StackPane styleClass="rs-center-area">
-            <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
-
-            <!-- Auth Card -->
-            <VBox styleClass="pf-form-card" maxWidth="450" alignment="TOP_CENTER">
-                <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
-
-                <Label text="SIGN IN" styleClass="pf-section-header"/>
-                <Label text="Welcome back" styleClass="pf-side-title" style="-fx-text-fill: #1e293b; -fx-font-size: 24px;">
-                    <VBox.margin><Insets top="8"/></VBox.margin>
-                </Label>
-                <Label text="Enter your credentials to continue." styleClass="pf-side-desc" style="-fx-text-fill: #94a3b8;">
-                    <VBox.margin><Insets top="5"/></VBox.margin>
-                </Label>
-
-                <VBox spacing="20">
-                    <VBox.margin><Insets top="40"/></VBox.margin>
-                    
-                    <VBox spacing="8">
-                        <Label text="Email Address" styleClass="pf-field-label"/>
-                        <TextField fx:id="emailField" promptText="admin@gmail.com" styleClass="pf-text-field"/>
-                    </VBox>
-                    
-                    <VBox spacing="8">
-                        <Label text="Password" styleClass="pf-field-label"/>
-                        <PasswordField fx:id="passwordField" promptText="Enter your secure password..." styleClass="pf-text-field"/>
-                    </VBox>
-
-                    <Label fx:id="errorLabel" styleClass="pf-error-label" visible="false"/>
-
-                    <Button text="Login" onAction="#handleLogin" prefHeight="50" maxWidth="Infinity" styleClass="rs-btn-primary">
-                        <VBox.margin><Insets top="10"/></VBox.margin>
-                    </Button>
-
-                    <Button text="← Back to Home" onAction="#handleBack" 
-                            style="-fx-background-color: transparent; -fx-text-fill: #64748b; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                
+                <VBox spacing="8">
+                    <Label text="Password" styleClass="login-field-label"/>
+                    <PasswordField fx:id="passwordField" promptText="Enter your secure password" styleClass="login-field"/>
                 </VBox>
+
+                <Label fx:id="errorLabel" styleClass="login-error-label" visible="false"/>
+
+                <Button text="Login to Dashboard" onAction="#handleLogin" maxWidth="Infinity" styleClass="login-btn-primary">
+                    <VBox.margin><Insets top="10"/></VBox.margin>
+                </Button>
+
+                <HBox alignment="CENTER">
+                    <VBox.margin><Insets top="15"/></VBox.margin>
+                    <Button text="← Back to Home" onAction="#handleBack" styleClass="login-btn-secondary"/>
+                </HBox>
             </VBox>
-        </StackPane>
-    </center>
-
-</BorderPane>
+        </VBox>
+    </VBox>
+</StackPane>

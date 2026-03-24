@@ -158,14 +158,14 @@ public class RestaurantAuthController extends BaseController {
     @FXML
     public void switchToLogin() {
         tabPane.getSelectionModel().select(0);
-        loginToggleBtn.getStyleClass().add("ra-toggle-active");
-        registerToggleBtn.getStyleClass().remove("ra-toggle-active");
+        loginToggleBtn.getStyleClass().add("login-toggle-active");
+        registerToggleBtn.getStyleClass().remove("login-toggle-active");
     }
 
     @FXML
     public void switchToRegister() {
         tabPane.getSelectionModel().select(1);
-        registerToggleBtn.getStyleClass().add("ra-toggle-active");
-        loginToggleBtn.getStyleClass().remove("ra-toggle-active");
+        registerToggleBtn.getStyleClass().add("login-toggle-active");
+        loginToggleBtn.getStyleClass().remove("login-toggle-active");
     }
 }

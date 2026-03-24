@@ -4,143 +4,112 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.bhojhon.controller.RestaurantAuthController"
-            styleClass="pf-root"
-            stylesheets="@styles.css">
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.bhojhon.controller.RestaurantAuthController"
+           styleClass="login-root"
+           stylesheets="@styles.css">
 
-    <!-- ═══════════════ LEFT SIDEBAR ═══════════════ -->
-    <left>
-        <VBox styleClass="rs-sidebar" prefWidth="250">
-            <padding><Insets top="28" right="20" bottom="28" left="20"/></padding>
+    <!-- Decorative background elements -->
+    <AnchorPane>
+        <Region AnchorPane.rightAnchor="0" AnchorPane.topAnchor="150" prefWidth="120" prefHeight="48" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 24 0 0 24;" />
+        <Region AnchorPane.leftAnchor="0" AnchorPane.topAnchor="450" prefWidth="180" prefHeight="64" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 0 32 32 0;" />
+        <Region AnchorPane.leftAnchor="200" AnchorPane.bottomAnchor="0" prefWidth="80" prefHeight="140" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 12 12 0 0;" />
+    </AnchorPane>
+
+    <!-- Main Content -->
+    <VBox alignment="CENTER" spacing="20">
+        <!-- Header -->
+        <VBox alignment="CENTER" spacing="-5">
+            <Label text="Partner Portal" styleClass="menu-main-title" style="-fx-font-size: 36px;"/>
+            <Label text="RESTAURANT MANAGEMENT" styleClass="menu-sub-title" style="-fx-font-size: 14px; -fx-letter-spacing: 2px;"/>
+        </VBox>
+
+        <!-- Auth Card -->
+        <VBox styleClass="login-card-container" maxWidth="450" alignment="TOP_CENTER" spacing="0">
             
-            <!-- Back Button -->
-            <Button text="← Back to Main Menu" onAction="#handleBack" styleClass="pf-back-btn"/>
-
-            <!-- Branding -->
-            <VBox spacing="0">
-                <VBox.margin><Insets top="60"/></VBox.margin>
-                <Label text="PARTNER PORTAL" styleClass="pf-section-header" style="-fx-text-fill: #8b96b5; -fx-font-size: 11px;"/>
-                <Label text="Restaurant Owner" styleClass="pf-side-title">
-                    <VBox.margin><Insets top="10"/></VBox.margin>
-                </Label>
-                <HBox>
-                    <padding><Insets top="5"/></padding>
-                    <Label text="Management" styleClass="rs-btn-primary" 
-                           style="-fx-padding: 4 12; -fx-background-radius: 6; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                </HBox>
-            </VBox>
-
-            <!-- Description -->
-            <Label text="Login or create an account to continue." wrapText="true" styleClass="pf-side-desc">
-                <VBox.margin><Insets top="20"/></VBox.margin>
+            <Label text="Welcome Partner" styleClass="login-title"/>
+            <Label text="Login or create an account to continue" styleClass="login-subtitle">
+                <VBox.margin><Insets top="5"/></VBox.margin>
             </Label>
 
-            <!-- Spacer -->
-            <Region VBox.vgrow="ALWAYS"/>
-
-            <!-- Step indicator -->
-            <HBox spacing="12" alignment="CENTER_LEFT">
-                <StackPane styleClass="rs-step-badge">
-                    <Label text="1" styleClass="rs-step-badge-label"/>
-                </StackPane>
-                <VBox spacing="2">
-                    <Label text="Authentication" styleClass="rs-step-title"/>
-                    <Label text="Step 1 of 2" styleClass="rs-step-sub"/>
-                </VBox>
+            <!-- Toggle (Login / Register) -->
+            <HBox styleClass="login-toggle-container">
+                <VBox.margin><Insets top="20" bottom="20"/></VBox.margin>
+                <Button fx:id="loginToggleBtn" text="Login" onAction="#switchToLogin" 
+                        styleClass="login-toggle-btn login-toggle-active" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button fx:id="registerToggleBtn" text="Register" onAction="#switchToRegister" 
+                        styleClass="login-toggle-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
             </HBox>
 
-            <!-- Progress bar -->
-            <HBox>
-                <VBox.margin><Insets top="10"/></VBox.margin>
-                <Region styleClass="rs-progress-filled" prefWidth="60" prefHeight="3"/>
-                <Region styleClass="rs-progress-empty" HBox.hgrow="ALWAYS" prefHeight="3"/>
-            </HBox>
-        </VBox>
-    </left>
-
-    <!-- ═══════════════ CENTER AREA ═══════════════ -->
-    <center>
-        <StackPane styleClass="rs-center-area">
-            <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
-
-            <!-- Auth Card -->
-            <VBox styleClass="pf-form-card" maxWidth="450" alignment="TOP_CENTER">
-                <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
-
-                <Label text="ACCOUNT" styleClass="pf-section-header"/>
-                <Label text="Welcome back" styleClass="pf-side-title" style="-fx-text-fill: #1e293b; -fx-font-size: 24px;">
-                    <VBox.margin><Insets top="8"/></VBox.margin>
-                </Label>
-                <Label text="Enter your details to sign in" styleClass="pf-side-desc" style="-fx-text-fill: #94a3b8;">
-                    <VBox.margin><Insets top="5"/></VBox.margin>
-                </Label>
-
-                <!-- Toggle -->
-                <HBox styleClass="ra-toggle-container">
-                    <VBox.margin><Insets top="30" bottom="25"/></VBox.margin>
-                    <Button fx:id="loginToggleBtn" text="Login" onAction="#switchToLogin" 
-                            styleClass="ra-toggle-btn ra-toggle-active" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-                    <Button fx:id="registerToggleBtn" text="Register" onAction="#switchToRegister" 
-                            styleClass="ra-toggle-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-                </HBox>
-
-                <!-- Forms Area (TabPane with hidden headers) -->
-                <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="ra-tab-pane">
-                    <tabs>
-                        <!-- Login Tab -->
-                        <Tab>
-                            <VBox spacing="18">
-                                <VBox spacing="8">
-                                    <Label text="Email Address" styleClass="pf-field-label"/>
-                                    <TextField fx:id="loginEmailField" promptText="owner@restaurant.com" styleClass="pf-text-field"/>
+            <!-- Forms Area -->
+            <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="ra-tab-pane">
+                <tabs>
+                    <!-- Login Tab -->
+                    <Tab>
+                        <VBox spacing="18" alignment="CENTER_LEFT">
+                            <VBox.margin><Insets top="10"/></VBox.margin>
+                            <VBox spacing="8">
+                                <Label text="Email Address" styleClass="login-field-label"/>
+                                <TextField fx:id="loginEmailField" promptText="owner@restaurant.com" styleClass="login-field"/>
+                            </VBox>
+                            <VBox spacing="8">
+                                <Label text="Password" styleClass="login-field-label"/>
+                                <PasswordField fx:id="loginPasswordField" promptText="Enter your password" styleClass="login-field"/>
+                            </VBox>
+                            
+                            <Label fx:id="loginErrorLabel" styleClass="login-error-label" visible="false"/>
+                            
+                            <Button text="Sign In" onAction="#handleLogin" maxWidth="Infinity" styleClass="login-btn-primary">
+                                <VBox.margin><Insets top="10"/></VBox.margin>
+                            </Button>
+                        </VBox>
+                    </Tab>
+                    
+                    <!-- Register Tab -->
+                    <Tab>
+                        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;" hbarPolicy="NEVER">
+                            <VBox spacing="15" alignment="CENTER_LEFT">
+                                <padding><Insets right="5" top="10"/></padding>
+                                <VBox spacing="5">
+                                    <Label text="Restaurant Name" styleClass="login-field-label"/>
+                                    <TextField fx:id="registerRestaurantNameField" promptText="Enter restaurant name" styleClass="login-field"/>
                                 </VBox>
-                                <VBox spacing="8">
-                                    <Label text="Password" styleClass="pf-field-label"/>
-                                    <PasswordField fx:id="loginPasswordField" promptText="Enter your securely..." styleClass="pf-text-field"/>
+                                <VBox spacing="5">
+                                    <Label text="Email Address" styleClass="login-field-label"/>
+                                    <TextField fx:id="registerEmailField" promptText="owner@restaurant.com" styleClass="login-field"/>
                                 </VBox>
-                                <Label fx:id="loginErrorLabel" styleClass="pf-error-label" visible="false"/>
-                                <Button text="Sign In" onAction="#handleLogin" prefHeight="45" maxWidth="Infinity" styleClass="rs-btn-primary">
+                                <VBox spacing="5">
+                                    <Label text="Password" styleClass="login-field-label"/>
+                                    <PasswordField fx:id="registerPasswordField" promptText="Create password" styleClass="login-field"/>
+                                </VBox>
+                                <VBox spacing="5">
+                                    <Label text="Confirm Password" styleClass="login-field-label"/>
+                                    <PasswordField fx:id="registerConfirmPasswordField" promptText="Confirm password" styleClass="login-field"/>
+                                </VBox>
+                                <VBox spacing="5">
+                                    <Label text="Select Station" styleClass="login-field-label"/>
+                                    <ComboBox fx:id="stationComboBox" promptText="Choose station" maxWidth="Infinity" styleClass="login-field"/>
+                                </VBox>
+
+                                <Label fx:id="registerErrorLabel" styleClass="login-error-label" visible="false"/>
+                                
+                                <Button text="Create Account" onAction="#handleRegister" maxWidth="Infinity" styleClass="login-btn-primary">
                                     <VBox.margin><Insets top="10"/></VBox.margin>
                                 </Button>
                             </VBox>
-                        </Tab>
-                        <!-- Register Tab -->
-                        <Tab>
-                            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;" hbarPolicy="NEVER">
-                                <VBox spacing="15">
-                                    <VBox spacing="5">
-                                        <Label text="Restaurant Name" styleClass="pf-field-label"/>
-                                        <TextField fx:id="registerRestaurantNameField" promptText="Enter restaurant name" styleClass="pf-text-field"/>
-                                    </VBox>
-                                    <VBox spacing="5">
-                                        <Label text="Email Address" styleClass="pf-field-label"/>
-                                        <TextField fx:id="registerEmailField" promptText="owner@restaurant.com" styleClass="pf-text-field"/>
-                                    </VBox>
-                                    <VBox spacing="5">
-                                        <Label text="Password" styleClass="pf-field-label"/>
-                                        <PasswordField fx:id="registerPasswordField" promptText="Create password" styleClass="pf-text-field"/>
-                                    </VBox>
-                                    <VBox spacing="5">
-                                        <Label text="Confirm Password" styleClass="pf-field-label"/>
-                                        <PasswordField fx:id="registerConfirmPasswordField" promptText="Confirm password" styleClass="pf-text-field"/>
-                                    </VBox>
-                                    <VBox spacing="5">
-                                        <Label text="Select Station" styleClass="pf-field-label"/>
-                                        <ComboBox fx:id="stationComboBox" promptText="Choose station" maxWidth="Infinity" styleClass="pf-text-field"/>
-                                    </VBox>
-                                    <Label fx:id="registerErrorLabel" styleClass="pf-error-label" visible="false"/>
-                                    <Button text="Register" onAction="#handleRegister" prefHeight="45" maxWidth="Infinity" styleClass="rs-btn-primary">
-                                        <VBox.margin><Insets top="10"/></VBox.margin>
-                                    </Button>
-                                </VBox>
-                            </ScrollPane>
-                        </Tab>
-                    </tabs>
-                </TabPane>
-            </VBox>
-        </StackPane>
-    </center>
+                        </ScrollPane>
+                    </Tab>
+                </tabs>
+            </TabPane>
 
-</BorderPane>
+            <!-- Action Buttons -->
+            <HBox alignment="CENTER">
+                <VBox.margin><Insets top="20"/></VBox.margin>
+                <Button text="← Back to Main Menu" onAction="#handleBack" styleClass="login-btn-secondary"/>
+            </HBox>
+
+        </VBox>
+    </VBox>
+
+</StackPane>
