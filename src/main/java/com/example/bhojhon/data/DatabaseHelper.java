@@ -47,6 +47,7 @@ public class DatabaseHelper {
                 "password TEXT NOT NULL," +
                 "station_id INTEGER NOT NULL," +
                 "created_at TEXT NOT NULL," +
+                "is_approved INTEGER DEFAULT 0," +
                 "FOREIGN KEY (station_id) REFERENCES stations(id)" +
                 ");";
 
@@ -66,6 +67,14 @@ public class DatabaseHelper {
             stmt.execute(createOrdersTableSQL);
             stmt.execute(createStationsTableSQL);
             stmt.execute(createRestaurantOwnersTableSQL);
+
+            // Allow adding column to existing database
+            try {
+                stmt.execute("ALTER TABLE restaurant_owners ADD COLUMN is_approved INTEGER DEFAULT 0");
+            } catch (SQLException e) {
+                // Column might already exist, ignore
+            }
+
             stmt.execute(createFoodItemsTableSQL);
 
             // Populate stations if empty
@@ -230,7 +239,7 @@ public class DatabaseHelper {
     public java.util.List<com.example.bhojhon.model.RestaurantOwner> getAllRestaurantOwners() {
         java.util.List<com.example.bhojhon.model.RestaurantOwner> list = new java.util.ArrayList<>();
         String query = "SELECT ro.id, ro.restaurant_name, ro.email, ro.password, " +
-                "ro.station_id, s.name as station_name, ro.created_at " +
+                "ro.station_id, s.name as station_name, ro.created_at, ro.is_approved " +
                 "FROM restaurant_owners ro " +
                 "JOIN stations s ON ro.station_id = s.id " +
                 "ORDER BY ro.created_at DESC";
@@ -247,7 +256,8 @@ public class DatabaseHelper {
                         rs.getString("password"),
                         rs.getInt("station_id"),
                         rs.getString("station_name"),
-                        rs.getString("created_at")));
+                        rs.getString("created_at"),
+                        rs.getInt("is_approved") == 1));
             }
         } catch (SQLException e) {
             System.err.println("Error fetching all restaurant owners: " + e.getMessage());
@@ -317,8 +327,8 @@ public class DatabaseHelper {
      * Register a new restaurant owner
      */
     public boolean registerRestaurantOwner(String restaurantName, String email, String password, int stationId) {
-        String insertSQL = "INSERT INTO restaurant_owners(restaurant_name, email, password, station_id, created_at) " +
-                "VALUES(?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO restaurant_owners(restaurant_name, email, password, station_id, created_at, is_approved) " +
+                "VALUES(?, ?, ?, ?, ?, 0)";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
                 PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
@@ -363,7 +373,8 @@ public class DatabaseHelper {
                             rs.getString("password"),
                             rs.getInt("station_id"),
                             rs.getString("station_name"),
-                            rs.getString("created_at"));
+                            rs.getString("created_at"),
+                            rs.getInt("is_approved") == 1);
                 }
             }
         } catch (SQLException e) {
@@ -371,6 +382,22 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Approve restaurant owner
+     */
+    public boolean approveRestaurantOwner(int ownerId) {
+        String updateSQL = "UPDATE restaurant_owners SET is_approved = 1 WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
+            pstmt.setInt(1, ownerId);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error approving restaurant owner: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**

@@ -53,6 +53,7 @@ public class RestaurantAuthController extends BaseController {
     @FXML
     private void handleLogin() {
         loginErrorLabel.setText("");
+        loginErrorLabel.setVisible(false);
 
         String email = loginEmailField.getText().trim();
         String password = loginPasswordField.getText();
@@ -60,11 +61,13 @@ public class RestaurantAuthController extends BaseController {
         // Validation
         if (email.isEmpty() || password.isEmpty()) {
             loginErrorLabel.setText("Please fill in all fields");
+            loginErrorLabel.setVisible(true);
             return;
         }
 
         if (!isValidEmail(email)) {
             loginErrorLabel.setText("Please enter a valid email address");
+            loginErrorLabel.setVisible(true);
             return;
         }
 
@@ -72,6 +75,12 @@ public class RestaurantAuthController extends BaseController {
         RestaurantOwner owner = dbHelper.authenticateRestaurantOwner(email, password);
 
         if (owner != null) {
+            if (!owner.isApproved()) {
+                loginErrorLabel.setText("waiting for approval");
+                loginErrorLabel.setVisible(true);
+                return;
+            }
+
             // Set session
             RestaurantSession.getInstance().setCurrentOwner(owner);
 
@@ -79,12 +88,14 @@ public class RestaurantAuthController extends BaseController {
             navigateTo("/com/example/bhojhon/restaurant-dashboard-view.fxml");
         } else {
             loginErrorLabel.setText("Invalid email or password");
+            loginErrorLabel.setVisible(true);
         }
     }
 
     @FXML
     private void handleRegister() {
         registerErrorLabel.setText("");
+        registerErrorLabel.setVisible(false);
 
         String restaurantName = registerRestaurantNameField.getText().trim();
         String email = registerEmailField.getText().trim();
@@ -96,21 +107,25 @@ public class RestaurantAuthController extends BaseController {
         if (restaurantName.isEmpty() || email.isEmpty() || password.isEmpty() ||
                 confirmPassword.isEmpty() || selectedStation == null) {
             registerErrorLabel.setText("Please fill in all fields");
+            registerErrorLabel.setVisible(true);
             return;
         }
 
         if (!isValidEmail(email)) {
             registerErrorLabel.setText("Please enter a valid email address");
+            registerErrorLabel.setVisible(true);
             return;
         }
 
         if (password.length() < 6) {
             registerErrorLabel.setText("Password must be at least 6 characters");
+            registerErrorLabel.setVisible(true);
             return;
         }
 
         if (!password.equals(confirmPassword)) {
             registerErrorLabel.setText("Passwords do not match");
+            registerErrorLabel.setVisible(true);
             return;
         }
 
@@ -119,17 +134,15 @@ public class RestaurantAuthController extends BaseController {
                 restaurantName, email, password, selectedStation.getId());
 
         if (success) {
-            showAlert("Success", "Restaurant Registered!",
-                    "Your restaurant has been successfully registered and is now visible to passengers.");
+            showAlert("Success", "Registration Pending", "waiting for approval");
 
-            // Auto-login after registration
-            RestaurantOwner owner = dbHelper.authenticateRestaurantOwner(email, password);
-            if (owner != null) {
-                RestaurantSession.getInstance().setCurrentOwner(owner);
-                navigateTo("/com/example/bhojhon/restaurant-dashboard-view.fxml");
-            }
+            // Switch to login tab after registration
+            switchToLogin();
+            loginEmailField.setText(email);
+            loginPasswordField.setText("");
         } else {
-            registerErrorLabel.setText("Registration failed. Email may already be in use.");
+            registerErrorLabel.setText("Registration failed. Email may already be in use or Database Error.");
+            registerErrorLabel.setVisible(true);
         }
     }
 
@@ -160,6 +173,8 @@ public class RestaurantAuthController extends BaseController {
         tabPane.getSelectionModel().select(0);
         loginToggleBtn.getStyleClass().add("login-toggle-active");
         registerToggleBtn.getStyleClass().remove("login-toggle-active");
+        loginErrorLabel.setVisible(false);
+        registerErrorLabel.setVisible(false);
     }
 
     @FXML
@@ -167,5 +182,7 @@ public class RestaurantAuthController extends BaseController {
         tabPane.getSelectionModel().select(1);
         registerToggleBtn.getStyleClass().add("login-toggle-active");
         loginToggleBtn.getStyleClass().remove("login-toggle-active");
+        loginErrorLabel.setVisible(false);
+        registerErrorLabel.setVisible(false);
     }
 }

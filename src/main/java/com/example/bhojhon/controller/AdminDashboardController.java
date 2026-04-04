@@ -11,6 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Button;
+import javafx.util.Callback;
+import javafx.beans.property.SimpleObjectProperty;
+import java.util.Optional;
 
 import java.util.List;
 
@@ -58,6 +66,8 @@ public class AdminDashboardController extends BaseController {
     @FXML
     private TableColumn<RestaurantOwner, String> regDateCol;
     @FXML
+    private TableColumn<RestaurantOwner, RestaurantOwner> statusCol;
+    @FXML
     private Label totalRestaurantsLabel;
 
     @Override
@@ -78,6 +88,42 @@ public class AdminDashboardController extends BaseController {
         ownerEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         restaurantStationCol.setCellValueFactory(new PropertyValueFactory<>("stationName"));
         regDateCol.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+
+        statusCol.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue()));
+        statusCol.setCellFactory(new Callback<TableColumn<RestaurantOwner, RestaurantOwner>, TableCell<RestaurantOwner, RestaurantOwner>>() {
+            @Override
+            public TableCell<RestaurantOwner, RestaurantOwner> call(TableColumn<RestaurantOwner, RestaurantOwner> param) {
+                return new TableCell<RestaurantOwner, RestaurantOwner>() {
+                    private final Button approveBtn = new Button("Review");
+                    private final Label approvedLbl = new Label("Approved");
+
+                    {
+                        approveBtn.getStyleClass().add("fm-btn-primary");
+                        approveBtn.setStyle("-fx-background-color: #3b82f6; -fx-padding: 5 10; -fx-font-size: 12px;");
+                        approveBtn.setOnAction(event -> {
+                            RestaurantOwner owner = getTableView().getItems().get(getIndex());
+                            showApprovalDialog(owner);
+                        });
+                        
+                        approvedLbl.setStyle("-fx-text-fill: #10b981; -fx-font-weight: bold; -fx-background-color: #d1fae5; -fx-padding: 4 12; -fx-background-radius: 12px;");
+                    }
+
+                    @Override
+                    protected void updateItem(RestaurantOwner owner, boolean empty) {
+                        super.updateItem(owner, empty);
+                        if (empty || owner == null) {
+                            setGraphic(null);
+                        } else {
+                            if (owner.isApproved()) {
+                                setGraphic(approvedLbl);
+                            } else {
+                                setGraphic(approveBtn);
+                            }
+                        }
+                    }
+                };
+            }
+        });
 
         refreshAll();
     }
@@ -123,5 +169,31 @@ public class AdminDashboardController extends BaseController {
     @FXML
     private void handleLogout() {
         navigateTo("/com/example/bhojhon/main-menu-view.fxml");
+    }
+
+    private void showApprovalDialog(RestaurantOwner owner) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Approve Restaurant Owner");
+        alert.setHeaderText("Add Restaurant Owner?");
+        alert.setContentText("Do you want to add this restaurant owner, yes or no?\n\nRestaurant: " + owner.getRestaurantName() + "\nEmail: " + owner.getEmail());
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/com/example/bhojhon/styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("fm-border-radius");
+        dialogPane.setStyle("-fx-background-color: white; -fx-font-family: 'Plus Jakarta Sans'; -fx-font-size: 14px;");
+
+        ButtonType btnYes = new ButtonType("Yes", javafx.scene.control.ButtonBar.ButtonData.OK_DONE);
+        ButtonType btnNo = new ButtonType("No", javafx.scene.control.ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(btnYes, btnNo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == btnYes) {
+            DatabaseHelper db = new DatabaseHelper();
+            boolean success = db.approveRestaurantOwner(owner.getId());
+            if (success) {
+                owner.setApproved(true);
+                restaurantsTable.refresh();
+            }
+        }
     }
 }

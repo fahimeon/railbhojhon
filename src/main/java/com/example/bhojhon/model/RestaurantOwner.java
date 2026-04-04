@@ -11,9 +11,10 @@ public class RestaurantOwner {
     private int stationId;
     private String stationName;
     private String createdAt;
+    private boolean isApproved;
 
     public RestaurantOwner(int id, String restaurantName, String email, String password,
-            int stationId, String stationName, String createdAt) {
+            int stationId, String stationName, String createdAt, boolean isApproved) {
         this.id = id;
         this.restaurantName = restaurantName;
         this.email = email;
@@ -21,6 +22,7 @@ public class RestaurantOwner {
         this.stationId = stationId;
         this.stationName = stationName;
         this.createdAt = createdAt;
+        this.isApproved = isApproved;
     }
 
     public int getId() {
@@ -77,5 +79,13 @@ public class RestaurantOwner {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
     }
 }
