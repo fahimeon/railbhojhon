@@ -122,34 +122,38 @@ public class DataManager {
         foodItems = new ArrayList<>();
 
         // Example images: replace with real URLs
-        String img1 = "https://i.pinimg.com/736x/23/22/11/23221180c3b9a702f20c1f42051ad64d.jpg";
-        String img2 = "https://i.pinimg.com/736x/23/22/11/23221180c3b9a702f20c1f42051ad64d.jpg";
-        String img3 = "https://i.pinimg.com/736x/23/22/11/23221180c3b9a702f20c1f42051ad64d.jpg";
-        String img4 = "https://i.pinimg.com/736x/23/22/11/23221180c3b9a702f20c1f42051ad64d.jpg";
+        String imgBiryani = "/com/example/bhojhon/images/biryani.png";
+        String imgPilaf = "/com/example/bhojhon/images/pilaf.png";
+        String imgRoast = "/com/example/bhojhon/images/roast_chicken.png";
+        String imgKabab = "/com/example/bhojhon/images/kebab.png";
+        String imgCurry = "/com/example/bhojhon/images/curry.png";
+        String imgKorma = "/com/example/bhojhon/images/curry.png";
+        String imgAyran = "/com/example/bhojhon/images/borhani.png";
+        String imgFirni = "/com/example/bhojhon/images/firni.png";
 
         foodItems.add(new FoodItem(1, "Kacchi Biriyani", 1, 250, "Main Course", "Authentic Dhaka-style mutton biriyani",
-                img1));
-        foodItems.add(new FoodItem(2, "Beef Tehari", 1, 180, "Main Course", "Spicy beef rice dish", img2));
-        foodItems.add(new FoodItem(3, "Chicken Roast", 1, 200, "Side Dish", "Bengali style chicken roast", img3));
-        foodItems.add(new FoodItem(4, "Shami Kabab", 1, 120, "Appetizer", "6 pieces of traditional kabab", img4));
+                imgBiryani));
+        foodItems.add(new FoodItem(2, "Beef Tehari", 1, 180, "Main Course", "Spicy beef rice dish", imgBiryani));
+        foodItems.add(new FoodItem(3, "Chicken Roast", 1, 200, "Side Dish", "Bengali style chicken roast", imgRoast));
+        foodItems.add(new FoodItem(4, "Shami Kabab", 1, 120, "Appetizer", "6 pieces of traditional kabab", imgKabab));
 
         // Sultan's Dine menu
         foodItems.add(new FoodItem(5, "Morog Polao", 2, 150, "Main Course", "Chicken pilaf Bengali style",
-                "https://i.pinimg.com/736x/23/22/11/23221180c3b9a702f20c1f42051ad64d.jpg"));
+                imgPilaf));
         foodItems.add(new FoodItem(6, "Beef Rezala", 2, 220, "Main Course", "Creamy beef curry",
-                "https://i.pinimg.com/736x/23/22/11/23221180c3b9a702f20c1f42051ad64d.jpg"));
+                imgCurry));
         foodItems.add(new FoodItem(7, "Mutton Korma", 2, 280, "Main Course", "Rich mutton curry",
-                "https://i.pinimg.com/736x/23/22/11/23221180c3b9a702f20c1f42051ad64d.jpg"));
+                imgKorma));
         foodItems.add(new FoodItem(8, "Borhani", 2, 50, "Beverage", "Traditional yogurt drink",
-                "https://i.pinimg.com/736x/23/22/11/23221180c3b9a702f20c1f42051ad64d.jpg"));
+                imgAyran));
 
         // Kacchi Bhai menu
         foodItems.add(new FoodItem(9, "Special Kacchi", 3, 300, "Main Course", "Premium mutton biriyani",
-                "hhttps://i.pinimg.com/736x/23/22/11/23221180c3b9a702f20c1f42051ad64d.jpg"));
+                imgBiryani));
         foodItems.add(new FoodItem(10, "Chicken Biriyani", 3, 180, "Main Course", "Dhaka style chicken biriyani",
-                "https://i.pinimg.com/736x/23/22/11/23221180c3b9a702f20c1f42051ad64d.jpg"));
+                imgBiryani));
         foodItems.add(new FoodItem(11, "Firni", 3, 80, "Dessert", "Traditional rice pudding",
-                "https://i.pinimg.com/736x/23/22/11/23221180c3b9a702f20c1f42051ad64d.jpg"));
+                imgFirni));
 
         // Similarly, add images for all other food items
         // e.g.:

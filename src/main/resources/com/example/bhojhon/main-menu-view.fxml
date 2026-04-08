@@ -41,14 +41,13 @@
             <!-- Restaurant Owner Card -->
             <Button styleClass="menu-option-card" onAction="#handleRestaurantClick">
                 <graphic>
-                    <VBox alignment="TOP_CENTER" spacing="15">
+                    <VBox alignment="TOP_CENTER" spacing="10">
                         <ImageView fitHeight="160" fitWidth="160" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@restaurantowner icon.png"/>
                             </image>
                         </ImageView>
                         <Label text="Restaurant&#10;Owner" textAlignment="CENTER" styleClass="menu-card-title"/>
-                        <VBox VBox.vgrow="ALWAYS" />
                         <Label text="Get Extra Orders from&#10;our App!" textAlignment="CENTER" styleClass="menu-card-desc"/>
                     </VBox>
                 </graphic>
@@ -57,14 +56,13 @@
             <!-- Passenger Card -->
             <Button styleClass="menu-option-card" onAction="#handleUserClick">
                 <graphic>
-                    <VBox alignment="TOP_CENTER" spacing="15">
+                    <VBox alignment="TOP_CENTER" spacing="10">
                         <ImageView fitHeight="160" fitWidth="160" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@passenger icon.png"/>
                             </image>
                         </ImageView>
                         <Label text="Passenger" textAlignment="CENTER" styleClass="menu-card-title"/>
-                        <VBox VBox.vgrow="ALWAYS" />
                         <Label text="Order Your Favourite Food&#10;from nearby restaurants" textAlignment="CENTER" styleClass="menu-card-desc"/>
                     </VBox>
                 </graphic>
@@ -73,14 +71,13 @@
             <!-- Admin Card -->
             <Button styleClass="menu-option-card" onAction="#handleAdminClick">
                 <graphic>
-                    <VBox alignment="TOP_CENTER" spacing="15">
+                    <VBox alignment="TOP_CENTER" spacing="10">
                         <ImageView fitHeight="160" fitWidth="160" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@admin icon.png"/>
                             </image>
                         </ImageView>
                         <Label text="Admin" textAlignment="CENTER" styleClass="menu-card-title"/>
-                        <VBox VBox.vgrow="ALWAYS" />
                         <Label text="Get to see dashboards&#10;and Insights" textAlignment="CENTER" styleClass="menu-card-desc"/>
                     </VBox>
                 </graphic>

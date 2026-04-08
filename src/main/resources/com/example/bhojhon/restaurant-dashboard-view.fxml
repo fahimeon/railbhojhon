@@ -35,6 +35,10 @@
                         <Label text="⊞" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
                         <Label text="Dashboard &amp; Menu" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"/>
                     </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="12" onMouseClicked="#handleNavigateToProfile" style="-fx-cursor: hand; -fx-background-color: transparent; -fx-padding: 12 16; -fx-border-radius: 12px;">
+                        <Label text="⚙" style="-fx-text-fill: #64748b; -fx-font-size: 16px;"/>
+                        <Label text="Profile Settings" style="-fx-text-fill: #64748b; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                    </HBox>
                     <Region VBox.vgrow="ALWAYS"/>
                     <!-- Logout -->
                     <HBox alignment="CENTER_LEFT" spacing="12" onMouseClicked="#handleBack" style="-fx-cursor: hand; -fx-background-color: transparent; -fx-padding: 12 16; -fx-border-color: #e2e8f0; -fx-border-radius: 12px; -fx-border-width: 1.5px;">

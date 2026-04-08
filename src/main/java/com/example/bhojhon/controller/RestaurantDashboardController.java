@@ -207,6 +207,11 @@ public class RestaurantDashboardController extends BaseController {
     }
 
     @FXML
+    private void handleNavigateToProfile() {
+        navigateTo("/com/example/bhojhon/restaurant-profile-view.fxml");
+    }
+
+    @FXML
     private void handleBack() {
         RestaurantSession.getInstance().setCurrentOwner(null);
         navigateTo("/com/example/bhojhon/restaurant-auth-view.fxml");

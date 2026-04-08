@@ -59,7 +59,7 @@ public class OrderConfirmationController extends BaseController {
     @FXML
     private Label label2, label3, label4;
 
-    private int secondsRemaining = 1800; // 30 minutes
+    private int secondsRemaining = 120; // 2 minutes
     private Timeline timeline;
 
     private Order order;
@@ -162,11 +162,11 @@ public class OrderConfirmationController extends BaseController {
         timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
 
         // Update progress stages based on time
-        if (secondsRemaining <= 120) { // < 2 mins: Arrived
+        if (secondsRemaining <= 10) { // < 10s: Arrived
             activateStep(step4Dot, label4, line3);
-        } else if (secondsRemaining <= 600) { // < 10 mins: On the way
+        } else if (secondsRemaining <= 50) { // < 50s: On the way
             activateStep(step3Dot, label3, line2);
-        } else if (secondsRemaining <= 1500) { // < 25 mins: Preparing
+        } else if (secondsRemaining <= 90) { // < 90s: Preparing
             activateStep(step2Dot, label2, line1);
         }
     }

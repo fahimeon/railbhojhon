@@ -63,11 +63,20 @@ public class FoodMenuController extends BaseController {
         ImageView imageView = new ImageView();
         imageView.setFitHeight(130);
         imageView.setFitWidth(220);
-        imageView.setPreserveRatio(false);
+        imageView.setPreserveRatio(true);
         String url = item.getImageUrl();
         if (url != null && !url.isEmpty()) {
             try {
-                imageView.setImage(new Image(url, true));
+                if (url.startsWith("http") || url.startsWith("file:")) {
+                    imageView.setImage(new Image(url, true));
+                } else {
+                    java.net.URL resourceUrl = getClass().getResource(url);
+                    if (resourceUrl != null) {
+                        imageView.setImage(new Image(resourceUrl.toExternalForm(), true));
+                    } else {
+                        imageView.setImage(new Image(url, true));
+                    }
+                }
             } catch (Exception e) {
                 // Ignore missing images natively
             }

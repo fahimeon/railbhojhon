@@ -1677,4 +1677,149 @@
 
 .sl-list-view .list-cell:selected .station-box .label {
     -fx-text-fill: #2563eb;
+}
+
+/* ─────────────────────────── MAIN MENU CARDS ─────────────────── */
+.menu-card-container {
+    -fx-alignment: center;
+}
+
+.menu-option-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 2px;
+    -fx-padding: 30;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 15, 0, 0, 8);
+}
+
+.menu-option-card:hover {
+    -fx-background-color: #eff6ff;
+    -fx-border-color: #3b82f6;
+    -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.3), 20, 0, 0, 10);
+    -fx-translate-y: -3px;
+}
+
+.menu-card-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #1e293b;
+    -fx-padding: 10 0 0 0;
+}
+
+.menu-card-desc {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748b;
+}
+
+/* ─────────────────────────── PARTNER PORTAL AUTH UI ───────────────── */
+.login-root {
+    -fx-background-color: linear-gradient(to bottom right, #1e3a8a, #3b82f6);
+}
+
+.login-card-container {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-padding: 35 40 35 40;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 25, 0, 0, 15);
+}
+
+.login-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #1e293b;
+}
+
+.login-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748b;
+}
+
+.login-toggle-container {
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 12px;
+    -fx-padding: 5;
+}
+
+.login-toggle-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #64748b;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.login-toggle-active {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #2563eb;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2);
+}
+
+.login-field-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #475569;
+}
+
+.login-field {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10 12;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1e293b;
+}
+
+.login-field:focused {
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 2px;
+    -fx-background-color: #ffffff;
+}
+
+.login-btn-primary {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+    -fx-font-size: 15px;
+    -fx-padding: 12 20;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+}
+
+.login-btn-primary:hover {
+    -fx-background-color: #1d4ed8;
+    -fx-effect: dropshadow(three-pass-box, rgba(37,99,235,0.3), 15, 0, 0, 5);
+}
+
+.login-btn-secondary {
+    -fx-background-color: transparent;
+    -fx-text-fill: #64748b;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.login-btn-secondary:hover {
+    -fx-text-fill: #3b82f6;
+    -fx-underline: true;
+}
+
+.login-error-label {
+    -fx-text-fill: #ef4444;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.ra-tab-pane *.tab-header-area {
+    -fx-padding: 0 0 0 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+    -fx-min-height: 0;
+    -fx-opacity: 0;
 }

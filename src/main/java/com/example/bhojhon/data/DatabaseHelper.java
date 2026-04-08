@@ -401,6 +401,37 @@ public class DatabaseHelper {
     }
 
     /**
+     * Update restaurant owner profile
+     */
+    public boolean updateRestaurantOwnerProfile(int id, String restaurantName, String email, String newPassword) {
+        String updateSQL;
+        boolean updatePassword = newPassword != null && !newPassword.trim().isEmpty();
+        if (updatePassword) {
+            updateSQL = "UPDATE restaurant_owners SET restaurant_name=?, email=?, password=? WHERE id=?";
+        } else {
+            updateSQL = "UPDATE restaurant_owners SET restaurant_name=?, email=? WHERE id=?";
+        }
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
+            pstmt.setString(1, restaurantName);
+            pstmt.setString(2, email.toLowerCase());
+            
+            if (updatePassword) {
+                pstmt.setString(3, hashPassword(newPassword));
+                pstmt.setInt(4, id);
+            } else {
+                pstmt.setInt(3, id);
+            }
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error updating restaurant owner profile: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
      * Count total registered restaurants (for Admin stat cards)
      */
     public int getRestaurantCount() {

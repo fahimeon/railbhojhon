@@ -79,7 +79,7 @@
                     <!-- Timer Box -->
                     <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #ffffff; -fx-background-radius: 16px; -fx-padding: 25; -fx-border-color: #e2e8f0; -fx-border-radius: 16px; -fx-border-width: 1; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 10, 0, 0, 2);">
                         <Label text="ESTIMATED ARRIVAL" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-letter-spacing: 1.5px; -fx-text-fill: #94a3b8;"/>
-                        <Label fx:id="timerLabel" text="30:00" style="-fx-font-size: 48px; -fx-font-weight: 900; -fx-text-fill: #10b981; -fx-font-family: 'Consolas', monospace;"/>
+                        <Label fx:id="timerLabel" text="02:00" style="-fx-font-size: 48px; -fx-font-weight: 900; -fx-text-fill: #10b981; -fx-font-family: 'Consolas', monospace;"/>
                     </VBox>
 
                     <!-- Tracking Stages -->
