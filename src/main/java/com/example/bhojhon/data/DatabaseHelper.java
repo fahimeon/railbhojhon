@@ -62,6 +62,12 @@ public class DatabaseHelper {
                 "FOREIGN KEY (restaurant_id) REFERENCES restaurant_owners(id)" +
                 ");";
 
+        String createRestaurantReviewsTableSQL = "CREATE TABLE IF NOT EXISTS restaurant_reviews (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "restaurant_id INTEGER NOT NULL," +
+                "rating REAL NOT NULL" +
+                ");";
+
         try (Connection conn = DriverManager.getConnection(DB_URL);
                 Statement stmt = conn.createStatement()) {
             stmt.execute(createOrdersTableSQL);
@@ -76,6 +82,7 @@ public class DatabaseHelper {
             }
 
             stmt.execute(createFoodItemsTableSQL);
+            stmt.execute(createRestaurantReviewsTableSQL);
 
             // Populate stations if empty
             populateStations(conn);
@@ -308,12 +315,13 @@ public class DatabaseHelper {
             while (rs.next()) {
                 // Mapping RestaurantOwner to Restaurant model for the UI
                 // We use +1000 to avoid ID conflicts with hardcoded ones in DataManager
+                int mappedId = rs.getInt("id") + 1000;
                 restaurants.add(new com.example.bhojhon.model.Restaurant(
-                        rs.getInt("id") + 1000,
+                        mappedId,
                         rs.getString("restaurant_name"),
                         rs.getInt("station_id"),
                         "Registered Kitchen", // Default cuisine
-                        4.5 // Default rating
+                        getAverageRestaurantRating(mappedId, 4.5) // Pull true rating
                 ));
             }
         } catch (SQLException e) {
@@ -429,6 +437,43 @@ public class DatabaseHelper {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * Save rating
+     */
+    public boolean saveRestaurantRating(int restaurantId, double rating) {
+        String insertSQL = "INSERT INTO restaurant_reviews(restaurant_id, rating) VALUES(?, ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+            pstmt.setInt(1, restaurantId);
+            pstmt.setDouble(2, rating);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error saving restaurant rating: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Get average rating seamlessly
+     */
+    public double getAverageRestaurantRating(int restaurantId, double defaultRating) {
+        String query = "SELECT AVG(rating) as avg_rating, COUNT(rating) as count FROM restaurant_reviews WHERE restaurant_id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, restaurantId);
+            java.sql.ResultSet rs = pstmt.executeQuery();
+            if (rs.next() && rs.getInt("count") > 0) {
+                // Round to 1 decimal place:
+                return Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error getting average rating: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return defaultRating;
     }
 
     /**

@@ -12,6 +12,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import javafx.stage.FileChooser;
+import javafx.scene.control.Button;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -58,6 +59,19 @@ public class OrderConfirmationController extends BaseController {
     private Region line1, line2, line3;
     @FXML
     private Label label2, label3, label4;
+
+    @FXML private javafx.scene.layout.VBox trackingBox;
+    @FXML private javafx.scene.layout.VBox ratingBox;
+    @FXML private Label ratingThanksLabel;
+    
+    @FXML private Button star1;
+    @FXML private Button star2;
+    @FXML private Button star3;
+    @FXML private Button star4;
+    @FXML private Button star5;
+
+    private Button[] stars;
+    private int lockedRating = 0; // Store rating clicked by user
 
     private int secondsRemaining = 120; // 2 minutes
     private Timeline timeline;
@@ -141,6 +155,14 @@ public class OrderConfirmationController extends BaseController {
                 System.err.println("Background email sending error: " + e.getMessage());
             }
         }).start();
+
+        // Setup star buttons
+        stars = new Button[]{star1, star2, star3, star4, star5};
+        for (int i = 0; i < stars.length; i++) {
+            final int index = i;
+            stars[i].setOnMouseEntered(e -> updateStarsHover(index));
+            stars[i].setOnMouseExited(e -> updateStarsHover(lockedRating - 1));
+        }
     }
 
     private void startTracking() {
@@ -149,6 +171,10 @@ public class OrderConfirmationController extends BaseController {
             if (secondsRemaining <= 0) {
                 secondsRemaining = 0;
                 timeline.stop();
+                trackingBox.setVisible(false);
+                trackingBox.setManaged(false);
+                ratingBox.setVisible(true);
+                ratingBox.setManaged(true);
             }
             updateTrackingUI();
         }));
@@ -532,5 +558,38 @@ public class OrderConfirmationController extends BaseController {
         navigationManager.clearData();
         navigationManager.clearHistory();
         navigateTo("/com/example/bhojhon/main-menu-view.fxml");
+    }
+
+    @FXML private void handleRate1() { submitRating(1); }
+    @FXML private void handleRate2() { submitRating(2); }
+    @FXML private void handleRate3() { submitRating(3); }
+    @FXML private void handleRate4() { submitRating(4); }
+    @FXML private void handleRate5() { submitRating(5); }
+
+    private void updateStarsHover(int hoverIndex) {
+        for (int i = 0; i < stars.length; i++) {
+            if (i <= hoverIndex) {
+                stars[i].setText("★");
+            } else {
+                stars[i].setText("☆");
+            }
+        }
+    }
+
+    private void submitRating(int rating) {
+        lockedRating = rating;
+        updateStarsHover(rating - 1);
+        
+        if (order != null && !order.getItems().isEmpty()) {
+            int restaurantId = order.getItems().get(0).getFoodItem().getRestaurantId();
+            com.example.bhojhon.data.DatabaseHelper db = new com.example.bhojhon.data.DatabaseHelper();
+            boolean success = db.saveRestaurantRating(restaurantId, rating);
+            if (success) {
+                ratingThanksLabel.setText("Thank you for your " + rating + "-star rating!");
+            } else {
+                ratingThanksLabel.setText("System error logging rating.");
+                ratingThanksLabel.setStyle("-fx-text-fill: #ef4444;"); 
+            }
+        }
     }
 }

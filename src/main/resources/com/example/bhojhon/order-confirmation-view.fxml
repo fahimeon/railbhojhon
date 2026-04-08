@@ -83,7 +83,7 @@
                     </VBox>
 
                     <!-- Tracking Stages -->
-                    <VBox spacing="20" styleClass="tracking-container" VBox.vgrow="ALWAYS" style="-fx-background-color: #ffffff; -fx-background-radius: 16px; -fx-padding: 25; -fx-border-color: #e2e8f0; -fx-border-radius: 16px; -fx-border-width: 1;">
+                    <VBox fx:id="trackingBox" spacing="20" styleClass="tracking-container" VBox.vgrow="ALWAYS" style="-fx-background-color: #ffffff; -fx-background-radius: 16px; -fx-padding: 25; -fx-border-color: #e2e8f0; -fx-border-radius: 16px; -fx-border-width: 1;">
                         <Label text="Order Status" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
                         
                         <HBox alignment="CENTER" spacing="0">
@@ -107,6 +107,22 @@
                                 <Label fx:id="label4" text="Arrived" styleClass="step-label, label-inactive"/>
                             </VBox>
                         </HBox>
+                    </VBox>
+
+                    <!-- Rating Box (Initially Hidden) -->
+                    <VBox fx:id="ratingBox" alignment="CENTER" spacing="15" visible="false" managed="false" VBox.vgrow="ALWAYS" style="-fx-background-color: #ffffff; -fx-background-radius: 16px; -fx-padding: 25; -fx-border-color: #10b981; -fx-border-radius: 16px; -fx-border-width: 2; -fx-effect: dropshadow(three-pass-box, rgba(16,185,129,0.2), 15, 0, 0, 4);">
+                        <Label text="Delivery Initialized!" style="-fx-font-size: 20px; -fx-font-weight: 900; -fx-text-fill: #10b981;"/>
+                        <Label text="How was your food?" style="-fx-font-size: 14px; -fx-text-fill: #64748b;"/>
+                        
+                        <HBox alignment="CENTER" spacing="10">
+                            <Button fx:id="star1" text="☆" onAction="#handleRate1" style="-fx-background-color: transparent; -fx-text-fill: #fcd34d; -fx-font-size: 32px; -fx-cursor: hand; -fx-padding: 0;"/>
+                            <Button fx:id="star2" text="☆" onAction="#handleRate2" style="-fx-background-color: transparent; -fx-text-fill: #fcd34d; -fx-font-size: 32px; -fx-cursor: hand; -fx-padding: 0;"/>
+                            <Button fx:id="star3" text="☆" onAction="#handleRate3" style="-fx-background-color: transparent; -fx-text-fill: #fcd34d; -fx-font-size: 32px; -fx-cursor: hand; -fx-padding: 0;"/>
+                            <Button fx:id="star4" text="☆" onAction="#handleRate4" style="-fx-background-color: transparent; -fx-text-fill: #fcd34d; -fx-font-size: 32px; -fx-cursor: hand; -fx-padding: 0;"/>
+                            <Button fx:id="star5" text="☆" onAction="#handleRate5" style="-fx-background-color: transparent; -fx-text-fill: #fcd34d; -fx-font-size: 32px; -fx-cursor: hand; -fx-padding: 0;"/>
+                        </HBox>
+                        
+                        <Label fx:id="ratingThanksLabel" text="" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #10b981;"/>
                     </VBox>
 
                     <!-- Spacer -->

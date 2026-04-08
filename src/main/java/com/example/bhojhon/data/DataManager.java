@@ -100,22 +100,23 @@ public class DataManager {
     }
 
     private void initializeRestaurants() {
+        DatabaseHelper dbHelper = new DatabaseHelper();
         restaurants = new ArrayList<>();
-        restaurants.add(new Restaurant(1, "Star Kabab", 1, "Bangladeshi", 4.5));
-        restaurants.add(new Restaurant(2, "Sultan's Dine", 1, "Bangladeshi/Mughlai", 4.7));
-        restaurants.add(new Restaurant(3, "Kacchi Bhai", 1, "Biriyani Specialist", 4.8));
-        restaurants.add(new Restaurant(4, "Handi Restaurant", 2, "Bangladeshi", 4.6));
-        restaurants.add(new Restaurant(5, "Mezban House", 2, "Chittagong Special", 4.5));
-        restaurants.add(new Restaurant(6, "Nanna Biriyani", 2, "Biriyani", 4.4));
-        restaurants.add(new Restaurant(7, "Roshomalai Palace", 3, "Bengali Sweets", 4.3));
-        restaurants.add(new Restaurant(8, "Morog Polao House", 3, "Bangladeshi", 4.2));
-        restaurants.add(new Restaurant(9, "Silk City Kabab", 6, "Bangladeshi", 4.4));
-        restaurants.add(new Restaurant(10, "Rajshahi Hotel", 6, "Bangladeshi", 4.0));
-        restaurants.add(new Restaurant(11, "Tangail Chomchom", 9, "Bengali Sweets", 4.6));
-        restaurants.add(new Restaurant(12, "Pabna Paradise", 8, "Bangladeshi", 4.1));
-        restaurants.add(new Restaurant(13, "Feni Garden", 4, "Local Cuisine", 4.2));
-        restaurants.add(new Restaurant(14, "Laksam Junction Hotel", 5, "Bangladeshi", 3.9));
-        restaurants.add(new Restaurant(15, "Ishwardi Food Court", 7, "Snacks & Meals", 4.0));
+        restaurants.add(new Restaurant(1, "Star Kabab", 1, "Bangladeshi", dbHelper.getAverageRestaurantRating(1, 4.5)));
+        restaurants.add(new Restaurant(2, "Sultan's Dine", 1, "Bangladeshi/Mughlai", dbHelper.getAverageRestaurantRating(2, 4.7)));
+        restaurants.add(new Restaurant(3, "Kacchi Bhai", 1, "Biriyani Specialist", dbHelper.getAverageRestaurantRating(3, 4.8)));
+        restaurants.add(new Restaurant(4, "Handi Restaurant", 2, "Bangladeshi", dbHelper.getAverageRestaurantRating(4, 4.6)));
+        restaurants.add(new Restaurant(5, "Mezban House", 2, "Chittagong Special", dbHelper.getAverageRestaurantRating(5, 4.5)));
+        restaurants.add(new Restaurant(6, "Nanna Biriyani", 2, "Biriyani", dbHelper.getAverageRestaurantRating(6, 4.4)));
+        restaurants.add(new Restaurant(7, "Roshomalai Palace", 3, "Bengali Sweets", dbHelper.getAverageRestaurantRating(7, 4.3)));
+        restaurants.add(new Restaurant(8, "Morog Polao House", 3, "Bangladeshi", dbHelper.getAverageRestaurantRating(8, 4.2)));
+        restaurants.add(new Restaurant(9, "Silk City Kabab", 6, "Bangladeshi", dbHelper.getAverageRestaurantRating(9, 4.4)));
+        restaurants.add(new Restaurant(10, "Rajshahi Hotel", 6, "Bangladeshi", dbHelper.getAverageRestaurantRating(10, 4.0)));
+        restaurants.add(new Restaurant(11, "Tangail Chomchom", 9, "Bengali Sweets", dbHelper.getAverageRestaurantRating(11, 4.6)));
+        restaurants.add(new Restaurant(12, "Pabna Paradise", 8, "Bangladeshi", dbHelper.getAverageRestaurantRating(12, 4.1)));
+        restaurants.add(new Restaurant(13, "Feni Garden", 4, "Local Cuisine", dbHelper.getAverageRestaurantRating(13, 4.2)));
+        restaurants.add(new Restaurant(14, "Laksam Junction Hotel", 5, "Bangladeshi", dbHelper.getAverageRestaurantRating(14, 3.9)));
+        restaurants.add(new Restaurant(15, "Ishwardi Food Court", 7, "Snacks & Meals", dbHelper.getAverageRestaurantRating(15, 4.0)));
     }
 
     private void initializeFoodItems() {
