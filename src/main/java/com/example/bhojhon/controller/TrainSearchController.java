@@ -2,6 +2,7 @@ package com.example.bhojhon.controller;
 
 import com.example.bhojhon.data.CartManager;
 import com.example.bhojhon.data.DataManager;
+import com.example.bhojhon.exception.TrainSearchException;
 import com.example.bhojhon.model.Train;
 import com.example.bhojhon.util.BaseController;
 import javafx.fxml.FXML;
@@ -39,33 +40,57 @@ public class TrainSearchController extends BaseController {
     }
 
     /**
+     * Helper to clear train details
+     */
+    private void clearTrainDetails() {
+        trainNameLabel.setText("");
+        routeLabel.setText("");
+        stationCountLabel.setText("");
+    }
+
+    /**
+     * Validate train number input
+     */
+    private String validateTrainNumber() throws TrainSearchException {
+        String trainNumber = trainNumberField.getText().trim();
+        if (trainNumber.isEmpty()) {
+            throw new TrainSearchException("Please enter a train number");
+        }
+        return trainNumber;
+    }
+
+    /**
+     * Find train by number or throw exception
+     */
+    private Train findTrainByNumber(String trainNumber) throws TrainSearchException {
+        Train train = DataManager.getInstance().getTrainByNumber(trainNumber);
+        if (train == null) {
+            throw new TrainSearchException("Train not found! Try: 101, 102, 201, or 202");
+        }
+        return train;
+    }
+
+    /**
      * Handle search button click
      */
     @FXML
     private void handleSearch() {
-        String trainNumber = trainNumberField.getText().trim();
+        try {
+            String trainNumber = validateTrainNumber();
+            selectedTrain = findTrainByNumber(trainNumber);
 
-        if (trainNumber.isEmpty()) {
-            showAlert("Please enter a train number", Alert.AlertType.WARNING);
-            return;
-        }
-
-        // Search for train
-        selectedTrain = DataManager.getInstance().getTrainByNumber(trainNumber);
-
-        if (selectedTrain == null) {
-            showAlert("Train not found! Try: 101, 102, 201, or 202", Alert.AlertType.ERROR);
-            trainNameLabel.setText("");
-            routeLabel.setText("");
-            stationCountLabel.setText("");
-        } else {
-            // Display train information
             trainNameLabel.setText(selectedTrain.getName());
             routeLabel.setText(selectedTrain.getRoute());
             stationCountLabel.setText(selectedTrain.getStations().size() + " stations");
-
-            // Store train info in cart manager
             CartManager.getInstance().setSelectedTrainNumber(trainNumber);
+        } catch (TrainSearchException e) {
+            clearTrainDetails();
+            selectedTrain = null;
+            showAlert(e.getMessage(), Alert.AlertType.ERROR);
+        } catch (Exception e) {
+            clearTrainDetails();
+            selectedTrain = null;
+            showAlert("Unexpected error while searching train: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
