@@ -21,7 +21,7 @@
     <VBox alignment="CENTER" spacing="30">
         <!-- Logo / Header -->
         <VBox alignment="CENTER" spacing="-5">
-            <Label text="Bhojon OnRails" styleClass="menu-main-title" style="-fx-font-size: 42px;"/>
+            <Label text="BhojonOnRails" styleClass="menu-main-title" style="-fx-font-size: 42px;"/>
             <Label text="ADMIN PORTAL" styleClass="menu-sub-title" style="-fx-font-size: 14px; -fx-letter-spacing: 2px;"/>
         </VBox>
 

@@ -100,7 +100,7 @@ public abstract class BaseController {
      */
     protected void navigateTo(String fxmlPath) {
         if (navigationManager != null) {
-            navigationManager.navigateTo(fxmlPath, "RailKhabar");
+            navigationManager.navigateTo(fxmlPath, "BhojonOnRails");
         }
     }
 

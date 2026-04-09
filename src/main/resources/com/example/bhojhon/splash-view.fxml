@@ -31,8 +31,7 @@
 
         <!-- Massive Centered Title -->
         <VBox alignment="CENTER" spacing="-25">
-            <Label text="Bhojon" style="-fx-font-size: 80px; -fx-font-weight: 900; -fx-text-fill: #e2e8f0; -fx-font-family: 'Segoe UI', Arial, sans-serif; -fx-letter-spacing: -2px;"/>
-            <Label text="OnRails" style="-fx-font-size: 80px; -fx-font-weight: 900; -fx-text-fill: #e2e8f0; -fx-font-family: 'Segoe UI', Arial, sans-serif; -fx-letter-spacing: -2px;"/>
+            <Label text="BhojonOnRails" style="-fx-font-size: 80px; -fx-font-weight: 900; -fx-text-fill: #e2e8f0; -fx-font-family: 'Segoe UI', Arial, sans-serif; -fx-letter-spacing: -2px;"/>
         </VBox>
 
         <!-- Bottom Action Pill / Loading Area -->

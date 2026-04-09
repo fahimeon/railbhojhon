@@ -33,7 +33,7 @@
                 <!-- Brand -->
                 <VBox spacing="5" alignment="CENTER_LEFT">
                     <VBox.margin><Insets bottom="30"/></VBox.margin>
-                    <Label text="🚂 RailKhabar" style="-fx-font-size: 22px; -fx-font-weight: 900; -fx-text-fill: #1e293b;"/>
+                    <Label text="🚂 BhojonOnRails" style="-fx-font-size: 22px; -fx-font-weight: 900; -fx-text-fill: #1e293b;"/>
                     <Label text="Admin Console" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #3b82f6;"/>
                 </VBox>
 

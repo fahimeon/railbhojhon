@@ -1,10 +1,10 @@
-# Bhojhon - Train Food Pre-Order System
+# BhojonOnRails - Train Food Pre-Order System
 
-Welcome to **Bhojhon**, a JavaFX-based desktop application designed to facilitate food pre-ordering for train passengers in Bangladesh. This system allows users to search for trains, view routes, select stations, and order food from available restaurants.
+Welcome to **BhojonOnRails**, a JavaFX-based desktop application designed to facilitate food pre-ordering for train passengers in Bangladesh. This system allows users to search for trains, view routes, select stations, and order food from available restaurants.
 
 ## 🚀 Project Overview
 
-**Bhojhon** serves as a digital platform connecting train passengers with local restaurants at competitive prices. The application is built with a focus on a clean user interface, seamless navigation, and robust architectural principles.
+**BhojonOnRails** serves as a digital platform connecting train passengers with local restaurants at competitive prices. The application is built with a focus on a clean user interface, seamless navigation, and robust architectural principles.
 
 ### Key Features
 *   **Train Search**: Search for trains by number (e.g., "101", "102").

@@ -52,13 +52,13 @@ public class EmailService {
             Message message = new MimeMessage(session);
 
             // Set From: header field
-            message.setFrom(new InternetAddress(SMTP_AUTH_USER, "Bhojhon RailKhabar"));
+            message.setFrom(new InternetAddress(SMTP_AUTH_USER, "BhojonOnRails"));
 
             // Set To: header field
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
 
             // Set Subject: header field
-            message.setSubject("Order Confirmed! #" + orderId + " - Bhojhon RailKhabar");
+            message.setSubject("Order Confirmed! #" + orderId + " - BhojonOnRails");
 
             // Build Email Content
             StringBuilder emailBody = new StringBuilder();
@@ -67,7 +67,7 @@ public class EmailService {
             emailBody.append("--- ORDER SUMMARY ---\n");
             emailBody.append(orderDetails);
             emailBody.append("\n\nWe will deliver your food to your seat at the specified station.");
-            emailBody.append("\n\nEnjoy your meal!\nBhojhon RailKhabar Team");
+            emailBody.append("\n\nEnjoy your meal!\nBhojonOnRails Team");
 
             // Set the actual message
             message.setText(emailBody.toString());

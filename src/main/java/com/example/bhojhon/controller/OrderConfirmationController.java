@@ -254,7 +254,7 @@ public class OrderConfirmationController extends BaseController {
         }
 
         fileChooser.setInitialFileName(
-                "RailKhabar_Bill_" + orderIdLabel.getText().replace("#", "").replace(" ", "_") + ".pdf");
+                "BhojonOnRails_Bill_" + orderIdLabel.getText().replace("#", "").replace(" ", "_") + ".pdf");
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
 
@@ -507,7 +507,7 @@ public class OrderConfirmationController extends BaseController {
 
         // Thank you message
         contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 11);
-        String thankYouText = "Thank you for ordering with RailKhabar!";
+        String thankYouText = "Thank you for ordering with BhojonOnRails!";
         float thankYouWidth = PDType1Font.HELVETICA_OBLIQUE.getStringWidth(thankYouText) / 1000 * 11;
         contentStream.beginText();
         contentStream.newLineAtOffset((pageWidth - thankYouWidth) / 2, yPosition);
